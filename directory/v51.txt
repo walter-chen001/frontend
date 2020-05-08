@@ -1,0 +1,15 @@
+﻿销售订单页
+
+search-form-v51
+    组件主要存放销售订单页的高级搜索组件，里面包含了选择记录人员的搜索条件
+
+form-table-v51
+    组件主要存放销售订单页的列表组件，里面包含了列表一个表格
+
+right-column-v51
+    组件主要存放销售订单页的右侧栏组件，里面包含了basic-info_v51组件
+
+basic-info_v51
+    组件主要存放sales order页的右侧栏内容
+    功能有(customer、item-detalls、payment-recelve、dellvery、documents、other-info)
+    

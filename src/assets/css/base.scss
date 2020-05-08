@@ -1,0 +1,346 @@
+/**
+ * 公用的css
+ */
+html,
+body {
+    margin:0;
+    height: 100%;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:focus,
+a:hover {
+    text-decoration: none
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: unset;
+}
+
+.bg-primary{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('primary');
+    };
+}
+
+.bg-success{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('success');
+    };
+}
+
+.bg-warning{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('warning');
+    };
+}
+
+.bg-danger{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('danger');
+    };
+}
+
+.bg-info{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('info');
+    };
+}
+
+.bg-light{
+    color:#313a46;
+    @include themify($themes) {
+      background-color: themed('light');
+    };
+}
+
+.bg-dark{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('dark');
+    };
+}
+
+.bg-secondary{
+    color:#fff;
+    @include themify($themes) {
+      background-color: themed('secondary');
+    };
+}
+
+.bg-white {
+    background: #fff;
+}
+
+.color-primary {
+    @include themify($themes) {
+      color: themed('primary');
+    };
+}
+
+.color-success {
+    @include themify($themes) {
+      color: themed('success');
+    };
+}
+
+.color-warning {
+    @include themify($themes) {
+      color: themed('warning');
+    };
+}
+
+.color-danger {
+    @include themify($themes) {
+      color: themed('danger');
+    };
+}
+
+.color-info {
+    @include themify($themes) {
+      color: themed('info');
+    };
+}
+
+.color-red {
+    color: $red;
+}
+
+.color-green {
+    color: $green;
+}
+
+.color-white {
+    color: #fff;
+}
+
+.font-primary{
+    @include themify($themes) {
+      color: themed('primary');
+    };
+}
+
+.block {
+    display: block
+}
+
+.clear {
+    display: block;
+    overflow: hidden
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e7eaec!important
+}
+
+.font-bold {
+    font-weight: 600
+}
+
+.font-noraml {
+    font-weight: 400
+}
+
+.badge {
+    box-sizing: border-box;
+    background-color: #d1dade;
+    color: #5e5e5e;
+    font-size: 12px;
+    font-weight: 600;
+    padding-bottom: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+    text-shadow: none;
+    border-radius: 100px;
+    height: 18.7px;
+    line-height: 18px;
+}
+
+.badge-primary,
+.label-primary {
+    @include themify($themes) {
+      background-color: themed('primary');
+    };
+    color: #fff
+}
+
+.badge-success,
+.label-success {
+    @include themify($themes) {
+      background-color: themed('success');
+    };
+    color: #fff
+}
+
+.badge-warning,
+.badge-warning-light,
+.label-warning,
+.label-warning-light {
+    @include themify($themes) {
+      background-color: themed('warning');
+    };
+    background-color: #f8ac59;
+    color: #fff
+}
+
+.badge-danger,
+.label-danger {
+    @include themify($themes) {
+      background-color: themed('danger');
+    };
+    background-color: #ed5565;
+    color: #fff
+}
+
+.badge-info,
+.label-info {
+    @include themify($themes) {
+      background-color: themed('info');
+    };
+    background-color: #23c6c8;
+    color: #fff
+}
+
+.badge-inverse,
+.label-inverse {
+    background-color: #262626;
+    color: #fff
+}
+
+.badge-white,
+.label-white {
+    background-color: #fff;
+    color: #5e5e5e
+}
+
+.badge-disable,
+.label-white {
+    background-color: #2a2e36;
+    color: #8b91a0
+}
+
+.mg-bm-5 {
+    margin-bottom: 5px;
+}
+
+.form-ele-fill {
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #F5F5F5
+}
+
+::-webkit-scrollbar-track {
+    background-color: #F5F5F5
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #2f507338
+}
+
+::-moz-placeholder {
+    color: #C0C4CC;
+    font-size: 13px;
+}
+
+::-webkit-input-placeholder {
+    color: #C0C4CC;
+    font-size: 13px;
+}
+
+:-ms-input-placeholder {
+    color: #C0C4CC;
+    font-size: 13px;
+}
+
+
+
+.un-margin {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.pull-left {
+    float: left;
+}
+
+ul.nav {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.bo-row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.bo-row .bo-row-item {
+    margin: 0 2.5px;
+    flex: 1;
+    margin-bottom: 5px;
+}
+
+.bo-row-middle {
+    align-items: center;
+}
+
+.bd--square {
+    border-radius: unset!important;
+}
+
+.btn--square.el-button--medium {
+    padding: 10px;
+}
+
+.ex-card{
+    position: relative;
+}
+
+.ex-card-control{
+    position: absolute;
+    top: auto;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: 0!important;
+}
+
+.ex-card-control > *{margin-right: 5px;}
+
+// 用户中心页面 模态框中的发验证码按钮
+// .userInfo .el-input-group__append button.el-button {
+//         @include themify($themes) {
+//             background-color: themed('primary');
+//         };
+// }
+

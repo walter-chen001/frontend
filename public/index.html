@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/element-ui@2.12.0/lib/theme-chalk/index.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/metismenu@3.0.4/src/metisMenu.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.1/dist/css/lightbox.min.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.6/dist/cropper.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/styles/jqx.base.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/styles/jqx.bootstrap.css" rel="stylesheet"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/styles/jqx.arctic.css" rel="stylesheet">  -->
+
+    <!-- ali onlime font -->
+    <link href="//at.alicdn.com/t/font_1595230_bcy4z9q6r7s.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/mockjs@1.1.0/dist/mock.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-router@3.0.6/dist/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.19.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-i18n@8.11.2/dist/vue-i18n.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@johmun/vue-tags-input@2.1.0/dist/vue-tags-input.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.12.0/lib/index.js"></script>
+    <script src="https://www.promoketo.com/plugins/element-ui/locale/lang/en.min.js"></script>
+    <script src="https://www.promoketo.com/plugins/element-ui/locale/lang/zh-CN.min.js"></script>
+    <script src="https://www.promoketo.com/plugins/element-ui/locale/lang/zh-TW.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/element-resize-detector@1.2.1/dist/element-resize-detector.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/metismenu@3.0.4/dist/metisMenu.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/lazysizes@5.1.1/lazysizes.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.24.0/min/moment-with-locales.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script> -->
+
+    <!-- <script src="https://cdn.bootcss.com/element-ui/2.8.2/locale/en.min.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/element-ui/2.8.2/locale/zh-CN.min.js"></script> -->
+    <!-- <script src="https://cdn.bootcss.com/element-ui/2.8.2/locale/zh-TW.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/locale/lang/en.js" type="module"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/locale/lang/zh-CN.js" type="module"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/locale/lang/zh-TW.js" type="module"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.5.0/map/js/china.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-echarts@4.0.4/dist/vue-echarts.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue-lazyload@1.2.6/vue-lazyload.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.6/dist/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-cropper@0.4.9/dist/index.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.1/dist/js/lightbox.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/downloadjs@1.4.7/download.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/filesaver.js@1.3.4/FileSaver.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.1/Sortable.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-quill-editor@3.0.6/dist/vue-quill-editor.min.js"></script>
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqxcore.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqxdata.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqxgrid.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqxkanban.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqxsplitter.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqxbuttons.js"></script> -->
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/button.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/element-ui@2.13.0/lib/tabs.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jqwidgets-scripts@8.3.2/jqwidgets/jqx-all.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.15.1/dist/jszip.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.15.1/dist/xlsx.min.js"></script>
+  </head>
+  <body class="theme-default theme-yellow">
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

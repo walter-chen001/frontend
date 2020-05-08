@@ -1,0 +1,98 @@
+$color-text-primary:#303133;
+$color-text-secondary:#909399;
+$color-text-regular:#606266;
+$color-text-placeholder:#C0C4CC;
+
+$tag:#6C757D;
+$taga:#e2e3e5;
+$tagb:#f0f1f2;
+
+$green:#1fbba6;
+$red:#e66b6b;
+
+$borderBase:#DCDFE6;
+$borderLighter:#EBEEF5;
+$regularText:#666;
+$secondaryText:#999;
+
+// 黃色主题
+$theme-yellow: (
+  primary:#F5A200,
+  // primaryone:saturate(#FBC700,30%),
+  primarya:rgb(253, 236, 204),
+  primaryb:rgb(254, 246, 230),
+  // primaryone:desaturate(#FBC700,30%),
+  success:#3CAD9D,
+  warning:#FFE100,
+  danger:#DF6E6D,
+  info:#00AFEC,
+  infoa:rgb(220, 238, 252),
+  infob:rgb(238, 247, 254),
+  light:#eef2f7,
+  dark:#313a46,
+  secondary:#6c757d,
+  active:#313a46,
+  placeholder:#C0C4CC,
+  radius:.15rem,
+  secondaryText:#999,
+  regularText:#666666,
+  );
+
+//紫色主题
+$theme-hyper: (
+  // primary:darken(#727CF5,30%),
+  primary:#727CF5,
+  // primaryone:saturate(#727CF5,30%),
+  // primaryone:opacity(rgba(114, 124, 245 ,0.5)),
+  // primaryone:desaturate(#727CF5,60%),
+  primarya:rgb(227, 229, 253),
+  primaryb:rgb(241, 242, 254),
+  success:#0ACF97,
+  warning:#FFBC00,
+  danger:#FA5C7C,
+  info:#00AFEC,
+  infoa:rgb(220, 238, 252),
+  infob:rgb(238, 247, 254),
+  light:#eef2f7,
+  dark:#313a46,
+  secondary:#6c757d,
+  active:#313a46,
+  placeholder:#C0C4CC,
+  radius:.15rem,
+  secondaryText:#999,
+  regularText:#666666,
+  );
+
+//定义映射集合
+$themes: (
+  yellow: $theme-yellow,
+  hyper: $theme-hyper
+  );
+//使用@mixin封装对应的方法,这些方法都通过@include  方法名(arg) 来实现调用.定义mixin方法
+@mixin themify($themes: $themes) {
+  @each $theme-name, $map in $themes {
+
+    .theme-#{$theme-name} & {
+      $theme-map: () !global;
+      @each $key, $value in $map {
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+
+// 调用方式
+// .theme-text {
+//   @include themify($themes) {
+//     background: themed('primary');
+//   }
+// }

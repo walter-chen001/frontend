@@ -1,0 +1,384 @@
+@charset "UTF-8";
+
+.theme-default {
+    .el-main {
+        padding: 0
+    }
+
+    .el-header {
+        padding: 0;
+    }
+
+    /*全局默认间距*/
+    .el-form .el-form-item {
+        margin-bottom: 10px;
+    }
+
+    .ele-form-group {
+        margin-bottom: 10px;
+    }
+
+    label.el-form-item__label {
+        margin-bottom: 0;
+    }
+
+    .el-form-item__content textarea {
+        border-color: #e6e6e6;
+    }
+
+    .el-form-item--medium .el-form-item__label {
+        line-height: 34px;
+    }
+
+    .el-form--label-top label.el-form-item__label {
+        padding: 0;
+        margin-bottom: 5px;
+    }
+
+    .el-form--label-top label.el-form-item__label {
+        line-height: initial;
+    }
+
+    .el-form--label-top label.el-form-item__label {
+        padding: 0;
+    }
+
+    .eb-date.el-input__inner {
+        height: 34px;
+        line-height: 34px;
+        border-radius: 0;
+    }
+
+    .el-date-editor.eb-date .el-input__icon {
+        line-height: 26px;
+    }
+
+    .el-upload .el-upload__input {
+        display: none;
+    }
+
+    .el-input--medium .el-input__inner, .el-input--medium .el-textarea__inner {
+        border-radius: 0;
+    }
+
+    /*修正弹出模态窗时body出现滚动条的问题*/
+    .fixed-sidebar.el-popup-parent--hidden {
+        padding-right: 0 !important;
+    }
+
+    .box-card .el-card__header {
+        padding: 10px 20px;
+    }
+
+    .box-card .el-card__header .clearfix > span {
+        padding: 8px 0;
+        display: inline-block;
+    }
+
+    .box-card .el-card__header .sales-header-label {
+        padding: 8px 0;
+        display: inline-block;
+    }
+
+    .selected-highlight .jqx-grid-cell {
+        background-color: #ccc !important;
+    }
+
+    .el-tabs--border-card>.el-tabs__header {
+        background-color: #eaf2fa;
+    }
+
+    .el-tabs--border-card>.el-tabs__header .el-tabs__item {
+        color: #606266;
+    }
+
+    .el-table--medium td .cell {
+        padding: 0 5px;
+    }
+
+    .el-table--striped .el-table__body tr.el-table__row--striped.current-row td, .el-table__body tr.current-row>td, .el-table__body tr.hover-row.current-row>td, .el-table__body tr.hover-row.el-table__row--striped.current-row>td, .el-table__body tr.hover-row.el-table__row--striped>td, .el-table__body tr.hover-row>td {
+        @include themify($themes) {
+            background: themed('primarya');
+        }
+
+    }
+
+    .el-table th {
+        font-weight: unset;
+        color: #606266;
+    }
+
+    .el-table .cell {
+        line-height: 32px;
+        word-break: break-word;
+    }
+
+    .el-table th>.cell {
+        line-height: 50px;
+        white-space: nowrap;
+    }
+
+    .el-table .cell .el-input {
+        width: unset;
+        margin: 1px -4px;
+    }
+
+    .el-table .is-right .cell .el-input .el-input__inner {
+        text-align: right;
+    }
+
+    .el-table .cell .el-input--medium .el-input__inner {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .el-form-item--unmargin .el-form-item {
+        margin-bottom: 0 !important;
+    }
+
+    .el-card__header >  .clearfix {
+        min-height: 32px;
+    }
+
+    .el-button--mini, .el-button--mini.is-round {
+        padding: 7px;
+        min-width: 28px;
+    }
+
+    .ex-input-link .el-input .el-input__inner {
+        border: none;
+        background-color: #0000;
+        color: #909399;
+    }
+
+    .ex-input-link .el-select-dropdown {
+        margin-top: 5px;
+    }
+
+    .ex-input-link .popper__arrow {
+        display: none;
+    }
+
+    .el-dropdown-menu__item:focus, .el-dropdown-menu__item:not(.is-disabled):hover {
+        background-color: #f8f9fa;
+        color: #272e37;
+    }
+
+    .el-dropdown-menu .el-checkbox__input.is-checked+.el-checkbox__label {
+        color: #606266;
+    }
+
+    .el-dropdown-menu {
+        margin-top: 1px !important;
+        border-radius: .15rem
+    }
+
+    .el-dropdown-menu .popper__arrow {
+        display: none;
+    }
+
+    .el-upload-list__item {
+        transition: visibility 0s, opacity 0.5s linear;
+    }
+
+    /* 解决与dailog的层级问题 */
+    .el-tabs__nav {
+        z-index: unset;
+    }
+
+    .el-checkbox__inner {
+        z-index: unset;
+    }
+
+    .el-table {
+        // z-index: 0;
+    }
+
+    .el-table__header th {
+        padding: 0;
+    }
+
+    .el-table--border::after, .el-table--group::after, .el-table::before {
+        z-index: unset;
+    }
+
+    /* navmenu */
+    .el-menu {
+        background-color: #0000;
+    }
+
+    .el-menu .el-menu-item a {
+        display: block;
+        height: 100%;
+        margin: 0 -10px;
+        padding: 0 10px;
+        background-color: #fff;
+        color: #909399;
+    }
+
+    .el-menu .el-menu-item .router-link-exact-active, .el-menu .el-menu-item .router-link-exact-active:hover {
+        background-color: #2f4050;
+        color: #fff;
+    }
+
+    .el-menu .el-menu-item a:hover {
+        color: #272e37;
+        background: #f8f9fa;
+    }
+
+    .el-menu--popup-bottom-start {
+        margin-top: 0;
+        padding: 0;
+    }
+
+    .el-menu--horizontal .el-menu-item:not(.is-disabled):focus, .el-menu--horizontal .el-menu-item:not(.is-disabled):hover {
+        outline: 0;
+        color: #272e37;
+        background: #f8f9fa;
+    }
+
+    .el-menu--horizontal > .el-submenu.is-active .el-submenu__title {
+        border-bottom: unset;
+    }
+
+    .el-menu--horizontal.bo-menu > .el-submenu .el-submenu__title {
+        height: 34px;
+        line-height: 34px;
+    }
+
+    .vue-tags-input .ti-tag, .el-select .el-tag.el-tag--info {
+        color: $tag;
+        border-color: $taga;
+        background-color: $tagb;
+        font-size: 12px;
+    }
+
+    .el-select .el-tag.el-tag--info .el-tag__close {
+        color: $tag;
+        background-color: #0000;
+    }
+
+    .el-dialog__header {
+        min-height: 55px;
+    }
+
+    .el-dialog__body {
+        padding: 15px 20px;
+    }
+
+    .el-dialog__footer {
+        padding: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    .el-form--label-top .el-form-item__label {
+        padding: 0;
+    }
+
+    .el-select-group__title {
+        font-size: 14px;
+        color: #000000;
+    }
+
+    .el-select-group .el-select-dropdown__item {
+        padding-left: 35px;
+    }
+
+    .silder_block .el-form-item--medium .el-form-item__content {
+        line-height: 34px;
+    }
+
+    .no-label .el-form-item__content {
+        margin-left: 0 !important;
+    }
+
+    .client-body .el-form .el-form-item {
+        margin-bottom: 15px;
+    }
+
+    .bo-row .el-form-item {
+        margin-bottom: 0;
+    }
+
+    .el-table--medium td .cell {
+        padding: 8px;
+    }
+
+    .el-table .warning-row {
+        background: oldlace;
+    }
+
+    .el-table .success-row {
+        background: #f0f9eb;
+    }
+
+    .el-input-group .el-input__inner {
+        border-radius: unset;
+    }
+
+    .el-upload-list .el-icon-upload-success, .el-upload-list .el-upload-list__item-status-label {
+        display: none;
+    }
+
+    .el-upload-list .el-upload-list__item.is-success .el-upload-list__item-status-label {
+        display: none;
+    }
+    .el-table .el-table__header-wrapper .el-table__header thead tr > th:first-child .cell,
+    .el-table .el-table__body tbody tr > td:first-child .cell{padding:0 15px;}
+
+    
+    .el-input-group__append, 
+    .el-input-group__prepend,
+    .el-dialog__headerbtn .el-dialog__close,
+    .el-message-box__headerbtn .el-message-box__close 
+    {
+        color: $secondaryText;
+    }
+
+}
+
+.pub_dialog {
+    display: flex;
+    justify-content: center;
+    align-items: Center;
+    overflow: hidden;
+    .el-dialog {
+      margin: 0 auto !important;
+      overflow: hidden;
+    }
+  }
+
+.el-input-group--append .el-input-group__append .el-button--primary {
+  @include themify($themes) {
+    border-radius: 0 themed('radius') themed('radius') 0;
+    border: 1px solid  themed('primary');
+    background-color: themed('primary');
+    color: #fff;
+  }
+}
+
+
+body .el-dialog__wrapper{
+    background-color: #303133b0;
+}
+
+body .v-modal{
+    display: none;
+}
+
+
+.theme-default .el-select-group__wrap:not(:last-of-type)::after{
+    display: none;
+}
+.theme-default .el-select-group__wrap:not(:last-of-type){
+    padding-bottom: 0;
+}
+
+.select-gray .el-input .el-input__inner{background-color: #ECEEF5;}
+
+.el-table .el-loading-mask{
+    z-index: 0;
+}
+
+
+
