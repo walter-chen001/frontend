@@ -15,7 +15,7 @@ export default {
             code: 0,
             msg: "",
             status: 200
-        }
+        };
         obj.data = {
             "topMenu": {
                 "children": {
@@ -28,6 +28,11 @@ export default {
                         "link": "system/setup/staff/index",
                         "moduleName": "销售",
                         "value": "m009"
+                    },
+                    "4": {
+                        "link": "system/setup/staff/index",
+                        "moduleName":"网上商店设置",
+                        "value": "m010"
                     }
                 },
                 "icon": "el-icon-s-tools",
@@ -63,9 +68,17 @@ export default {
                     "moduleName": "销售订单",
                     "link": "/sales/order/index",
                     "icon": "fa fa-shopping-cart"
+                }],
+                "m010": [{
+                    "type": "m010",
+                    "authority":"ebix999004001",
+                    "name": "shopSettingIndex",
+                    "itemID": "106",
+                    "moduleName":"网上商店设置", //E-shop setting
+                    "link":"/eShopSettings"
                 }]
             },
-            "currentFlow": "m009",
+            "currentFlow": "m010",
 
             "companyLanguage": [{
                 "label": "简体",
