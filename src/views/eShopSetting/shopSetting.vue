@@ -34,6 +34,35 @@
                         </el-select>
                     </el-col>
                 </el-form-item>
+                <el-form-item label="Region">
+                <el-col :span="12">
+                    <el-select v-model="region" placeholder="Select">
+                        <el-option
+                                v-for="item in regions"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="Members">
+                <el-col :span="10">
+                    <el-input v-model="shopData.members"></el-input>
+                </el-col>
+            </el-form-item>
+            <el-form-item label="Billing Currency">
+                <el-col :span="12">
+                    <el-select v-model="billing_currency" multiple multiple-limit="3" placeholder="Select">
+                        <el-option
+                                v-for="item in currency"
+                                :key="item.currency_id"
+                                :label="item.currency_name"
+                                :value="item.currency_id">
+                        </el-option>
+                    </el-select>
+                </el-col>
+            </el-form-item>
             </el-form>
         </el-card>
     </div>
@@ -46,9 +75,12 @@
             return {
                 shopData: {
                     shop_name : null,
+                    members: [],
                 },
                 fileList:'',
                 language:[],
+                region:[],
+                billing_currency:[],
                 lang: [{
                     value: 'english',
                     label: 'English'
@@ -62,6 +94,46 @@
                     value: 'chinese cultured',
                     label: 'Chinese cultured'
                 }, ],
+                regions: [{
+                    value: '(GMT +08:00) Asia/Hong_Kong',
+                    label: '(GMT +08:00) Asia/Hong_Kong'
+                }, {
+                    value: '(GMT +05:00) Asia/China',
+                    label: '(GMT +05:00) Asia/China'
+                },{
+                    value: '(GMT +05:30) Asia/India',
+                    label: '(GMT +05:30) Asia/India'
+                },{
+                    value: '(GMT +04:00) Asia/Nepal',
+                    label: '(GMT +04:00) Asia/Nepal'
+                }, ],
+                currency:[
+                    {
+                        "currency_id":501,
+                        "currency_name":"EUR",
+                        "currency_code":"eur",
+                        "currency_symbol":"€"
+                    },
+                    {
+                        "currency_id":502,
+                        "currency_name":"USD",
+                        "currency_code":"usd",
+                        "currency_symbol":"$"
+                    },
+                    {
+                        "currency_id":503,
+                        "currency_name":"YUAN",
+                        "currency_code":"yuan",
+                        "currency_symbol":"¥"
+                    },
+                    {
+                        "currency_id":504,
+                        "currency_name":"INR",
+                        "currency_code":"inr",
+                        "currency_symbol":"₹"
+                    }
+                ]
+
             }
         },
         methods:{
