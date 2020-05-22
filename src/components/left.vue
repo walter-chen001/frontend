@@ -5,13 +5,13 @@
       <el-image  class="logoPN" :src="company_info.logo" fit="cover" v-if="!menucollapse"></el-image>
     </div>
     <div class="menuHeader" v-if="!menucollapse">
-        <el-select 
-        v-if="topMenu.children.length != '0'" 
-        style="width:100%;" 
+        <el-select
+        v-if="topMenu.children.length != '0'"
+        style="width:100%;"
         class="ex-input-links"
         :popper-append-to-body="false"
-        v-model="currentProcess" 
-        @change="changeProcess" 
+        v-model="currentProcess"
+        @change="changeProcess"
         >
           <el-option v-for="item in topMenu.children" :key="item.value" :label="item.moduleName" :value="item.value"></el-option>
         </el-select>

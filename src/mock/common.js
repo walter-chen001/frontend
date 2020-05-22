@@ -15,7 +15,7 @@ export default {
             code: 0,
             msg: "",
             status: 200
-        }
+        };
         obj.data = {
             "topMenu": {
                 "children": {
@@ -28,6 +28,11 @@ export default {
                         "link": "system/setup/staff/index",
                         "moduleName": "销售",
                         "value": "m009"
+                    },
+                    "4": {
+                        "link": "system/setup/staff/index",
+                        "moduleName":"网上商店设置",
+                        "value": "m010"
                     }
                 },
                 "icon": "el-icon-s-tools",
@@ -63,9 +68,106 @@ export default {
                     "moduleName": "销售订单",
                     "link": "/sales/order/index",
                     "icon": "fa fa-shopping-cart"
+                }],
+                "m010": [{
+                    "type": "m010",
+                    "authority":"ebix999004001",
+                    "name": "shopSettingIndex",
+                    "itemID": "106",
+                    "moduleName":"网上商店设置", //E-shop setting
+                    "link":"/eShopSettings",
+                    "children": [{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99998",
+                        "name": "shopSetting",
+                        "itemID": "1060",
+                        "moduleName": "Shop Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/shopSetting",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99997",
+                        "name": "storeSetting",
+                        "itemID": "1061",
+                        "moduleName": "Store Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/storeSetting",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99996",
+                        "name": "paymentSettings",
+                        "itemID": "1062",
+                        "moduleName": "Payment Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/paymentSetting",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99995",
+                        "name": "productSetting",
+                        "itemID": "1063",
+                        "moduleName": "Product Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/productSetting",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99994",
+                        "name": "domainSetting",
+                        "itemID": "1064",
+                        "moduleName": "Domain Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/domainSetting",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99993",
+                        "name": "seoSetting",
+                        "itemID": "1065",
+                        "moduleName": "SEO Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/seoSetting",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99992",
+                        "name": "sslSettings",
+                        "itemID": "1066",
+                        "moduleName": "SSL Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/sslSettings",
+                        "icon": ""
+                    },{
+                        "type": "m010",
+                        "authority": "ebix999004001",
+                        "moduleID": "99991",
+                        "name": "publishSettings",
+                        "itemID": "1067",
+                        "moduleName": "Publish Setting",
+                        "isModul": true,
+                        "parentID": "106",
+                        "link": "/eShopSetting/publishSettings",
+                        "icon": ""
+                    }]
                 }]
             },
-            "currentFlow": "m009",
+            "currentFlow": "m010",
 
             "companyLanguage": [{
                 "label": "简体",

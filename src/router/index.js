@@ -11,6 +11,8 @@ import Home from '@/views/home/index.vue'
 import salesRouter from './modules/sales'
 import stockRouter from './modules/stock'
 
+import eshopSettingRouter from './modules/eshopSettingRouter'
+
 export const constantRouterMap = [
     {
         path: '/',
@@ -46,13 +48,15 @@ export const constantRouterMap = [
         name: 'resetPwd'
     },
 
+
     salesRouter,
     stockRouter,
-]
+    eshopSettingRouter,
+];
 
 export default new VueRouter({
     mode: "history",
     routes: constantRouterMap
 })
 
-export const asyncRouterMap = []
+export const asyncRouterMap = [];
