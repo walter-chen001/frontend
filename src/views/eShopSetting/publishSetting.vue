@@ -1,10 +1,10 @@
 <template>
-    <h3>Domain Setting</h3>
+    <h3>Welcome to Publish Setting</h3>
 </template>
 
 <script>
     export default {
-        name: "domainSetting"
+        name: "publishSetting"
     }
 </script>
 

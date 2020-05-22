@@ -1,10 +1,10 @@
 <template>
-    <h3>Product Setting</h3>
+    <h3>Welcome to Shop Setting</h3>
 </template>
 
 <script>
     export default {
-        name: "paymentSetting"
+        name: "shopSetting"
     }
 </script>
 

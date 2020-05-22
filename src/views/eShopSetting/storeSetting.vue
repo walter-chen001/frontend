@@ -1,10 +1,10 @@
 <template>
-    <h3>SSL setting</h3>
+    <h3>Welcome to Store Setting</h3>
 </template>
 
 <script>
     export default {
-        name: "sslSetting"
+        name: "storeSetting"
     }
 </script>
 

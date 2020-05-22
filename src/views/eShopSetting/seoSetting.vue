@@ -1,10 +1,10 @@
 <template>
-    <h3>Store Settings</h3>
+    <h3>Welcome to SEO Setting</h3>
 </template>
 
 <script>
     export default {
-        name: "storeSetting"
+        name: "seoSetting"
     }
 </script>
 

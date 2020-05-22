@@ -1,10 +1,10 @@
 <template>
-    <h3>SEO Setting</h3>
+    <h3>Welcome to Domain Setting</h3>
 </template>
 
 <script>
     export default {
-        name: "seoSetting"
+        name: "domainSetting"
     }
 </script>
 
