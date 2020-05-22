@@ -71,25 +71,25 @@ export default {
                 }],
                 "m010": [{
                     "type": "m010",
-                    "authority":"ebix999004001",
+                    "authority":"ebix99900901",
                     "name": "eShopSettings",
                     "itemID": "106",
                     "moduleName":"网上商店设置", //E-shop setting
                     "link":"/eShopSettings",
                     "children": [{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99998",
                         "name": "shopSetting",
                         "itemID": "1060",
-                        "moduleName": "店铺设置", //shop-setting
+                        "moduleName": "Shop 设置", //shop-setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/shopSetting",
                         "icon": ""
                     },{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99997",
                         "name": "storeSetting",
                         "itemID": "1061",
@@ -100,7 +100,7 @@ export default {
                         "icon": ""
                     },{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99996",
                         "name": "paymentSettings",
                         "itemID": "1062",
@@ -111,18 +111,18 @@ export default {
                         "icon": ""
                     },{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99995",
                         "name": "productSetting",
                         "itemID": "1063",
-                        "moduleName":"产品设定", //Product Setting
+                        "moduleName":"产品分类", //Product category
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/productSetting",
                         "icon": ""
                     },{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99994",
                         "name": "domainSetting",
                         "itemID": "1064",
@@ -133,7 +133,7 @@ export default {
                         "icon": ""
                     },{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99993",
                         "name": "seoSetting",
                         "itemID": "1065",
@@ -144,7 +144,7 @@ export default {
                         "icon": ""
                     },{
                         "type": "m010",
-                        "authority": "ebix999004001",
+                        "authority": "ebix99900901",
                         "moduleID": "99992",
                         "name": "sslSettings",
                         "itemID": "1066",
@@ -173,7 +173,7 @@ export default {
                 "label": "简体",
                 "value": "zh_cn"
             }]
-        }
+        };
         return obj
     },
     // getTableData: config => {
