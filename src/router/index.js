@@ -1,5 +1,7 @@
 
 import Public_template from '@/views/public_template.vue'
+import EshopEditor from '@/views/eshopEditor/index.vue'
+import TemplateList from '@/views/eshopEditor/templateList.vue'
 
 import Login from '@/views/login/index.vue'
 import Register from '@/views/login/register.vue'
@@ -20,6 +22,18 @@ export const constantRouterMap = [
                 path: '/',
                 component: Home,
                 name: 'BackHome'
+            },
+            
+        ]
+    },
+    {
+        path: '/eshopEditor',
+        component: EshopEditor,
+        children: [
+            {
+                path: '/',
+                component: TemplateList,
+                name: 'TemplateList'
             },
             
         ]
