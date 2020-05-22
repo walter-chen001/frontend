@@ -24,8 +24,8 @@ module.exports = {
         /* 自动打开浏览器 */
         open: true,
         /* 设置为0.0.0.0则所有的地址均能访问 */
-        host: host,
-        // host: '0.0.0.0',
+        // host: host,
+        host: '0.0.0.0',
         port: port,
         // https: false,
         // hotOnly: false,
