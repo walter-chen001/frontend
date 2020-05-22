@@ -72,7 +72,7 @@ export default {
                 "m010": [{
                     "type": "m010",
                     "authority":"ebix999004001",
-                    "name": "shopSettingIndex",
+                    "name": "eShopSettings",
                     "itemID": "106",
                     "moduleName":"网上商店设置", //E-shop setting
                     "link":"/eShopSettings",
@@ -82,7 +82,7 @@ export default {
                         "moduleID": "99998",
                         "name": "shopSetting",
                         "itemID": "1060",
-                        "moduleName": "Shop Setting",
+                        "moduleName": "店铺设置", //shop-setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/shopSetting",
@@ -93,7 +93,7 @@ export default {
                         "moduleID": "99997",
                         "name": "storeSetting",
                         "itemID": "1061",
-                        "moduleName": "Store Setting",
+                        "moduleName":"商店设置",  //Store Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/storeSetting",
@@ -104,7 +104,7 @@ export default {
                         "moduleID": "99996",
                         "name": "paymentSettings",
                         "itemID": "1062",
-                        "moduleName": "Payment Setting",
+                        "moduleName": "付款设置", //Payment Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/paymentSetting",
@@ -115,7 +115,7 @@ export default {
                         "moduleID": "99995",
                         "name": "productSetting",
                         "itemID": "1063",
-                        "moduleName": "Product Setting",
+                        "moduleName":"产品设定", //Product Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/productSetting",
@@ -126,7 +126,7 @@ export default {
                         "moduleID": "99994",
                         "name": "domainSetting",
                         "itemID": "1064",
-                        "moduleName": "Domain Setting",
+                        "moduleName": "域设置", //Domain Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/domainSetting",
@@ -137,7 +137,7 @@ export default {
                         "moduleID": "99993",
                         "name": "seoSetting",
                         "itemID": "1065",
-                        "moduleName": "SEO Setting",
+                        "moduleName": "SEO 设置", //SEO Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/seoSetting",
@@ -148,7 +148,7 @@ export default {
                         "moduleID": "99992",
                         "name": "sslSettings",
                         "itemID": "1066",
-                        "moduleName": "SSL Setting",
+                        "moduleName": "SSL 设置", //SSL Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/sslSettings",
@@ -159,7 +159,7 @@ export default {
                         "moduleID": "99991",
                         "name": "publishSettings",
                         "itemID": "1067",
-                        "moduleName": "Publish Setting",
+                        "moduleName": "发布设置", //Publish Setting
                         "isModul": true,
                         "parentID": "106",
                         "link": "/eShopSetting/publishSettings",
