@@ -109,18 +109,7 @@ export default {
                         "parentID": "106",
                         "link": "/eShopSetting/paymentSetting",
                         "icon": ""
-                    },{
-                        "type": "m010",
-                        "authority": "ebix99900901",
-                        "moduleID": "99995",
-                        "name": "productSetting",
-                        "itemID": "1063",
-                        "moduleName":"产品分类", //Product category
-                        "isModul": true,
-                        "parentID": "106",
-                        "link": "/eShopSetting/productSetting",
-                        "icon": ""
-                    },{
+                    }, {
                         "type": "m010",
                         "authority": "ebix99900901",
                         "moduleID": "99994",

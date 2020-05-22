@@ -3,7 +3,7 @@
     <div class="sectionContainer">
       <el-switch v-model="value1" active-text="" inactive-text="Store Status"></el-switch>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="Diplay" name="display">
+        <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display">
             <el-checkbox :label="1" v-model="checked">Quantity Box</el-checkbox>
             <el-checkbox :label="2">Allow Product Reviews</el-checkbox>
@@ -100,7 +100,7 @@ export default {
   padding-top: 10px;
 }
 .sectionContainer {
-  width: 550px;
+  width: 100%;
   background: #fff;
   position: relative;
   .el-tabs__content {

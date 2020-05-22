@@ -204,7 +204,7 @@ export default {
   padding-top: 10px;
 }
 .sectionContainer {
-  width: 450px;
+  width: 100%;
 }
 .centerSection {
   margin: 35px;
@@ -241,5 +241,14 @@ export default {
     position: absolute;
     right: 2px;
     top: 2px;
+}
+.upload-demo {
+    .el-upload {
+        width: 100%;
+        .el-button {
+            width: 100%;
+            display: block;
+        }
+    }
 }
 </style>
