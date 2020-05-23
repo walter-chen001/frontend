@@ -17,39 +17,40 @@
               :limit="1"
               :file-list="fileList"
             >
-              <el-button size="large">
+              <el-button size="large"> Upload
                 <i class="el-icon-upload2"></i>
               </el-button>
             </el-upload>
           </el-form-item>
-          <el-form-item label="Languages">
-            <el-select v-model="language" multiple multiple-limit="3" placeholder="Select">
+            {{languages}} ----------
+          <el-form-item label="Supported Languages">
+            <el-select v-model="languages" multiple multiple-limit="3" placeholder="Select">
               <el-option
-                v-for="item in lang"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in shopData.language"
+                :key="item.language_id"
+                :label="item.language_name"
+                :value="item.language_id"
               ></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="Region">
             <el-select v-model="region" placeholder="Select">
               <el-option
-                v-for="item in regions"
+                v-for="item in shopData.region"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Members">
+          <el-form-item label="Members(User Right)">
             <el-input v-model="shopData.members"></el-input>
             <el-button type="primary" size="small" @click="dialogTableVisible = true" class="memberAddButton">+</el-button>
           </el-form-item>
           <el-form-item label="Billing Currency">
-            <el-select v-model="billing_currency" multiple multiple-limit="3" placeholder="Select">
+            <el-select v-model="currency" multiple multiple-limit="3" placeholder="Select">
               <el-option
-                v-for="item in currency"
+                v-for="item in shopData.currency"
                 :key="item.currency_id"
                 :label="item.currency_name"
                 :value="item.currency_id"
@@ -63,34 +64,30 @@
       </el-card>
     </div>
 
-    <el-dialog title="Choose Role" :visible.sync="dialogTableVisible">
+    <el-dialog title="Choose Role" style="width: 120%" :visible.sync="dialogTableVisible">
       <div class="chooseRole">
         <el-form ref="chooseRole" :model="chooseRole">
           <el-form-item label="Email / Wechat ID">
             <el-input v-model="chooseRole.email_wechatID"></el-input>
           </el-form-item>
-          <!-- <h4 class="mb-0">Choose Role</h4> -->
-          <p>Whatever role you choose to assign, only you can transfer, duplicate or delete this site, or access the billing info.</p>
+           <!--<h4 class="mb-0">Choose Role</h4>-->
+            {{radio}} ------------
+          <p>Whatever role you choose to assisgn, only you can transfer, duplicate or delete this site, or access the billing info.</p>
           <el-radio-group v-model="radio">
-            <el-radio
-              :label="1"
-            >Admin: Has full access to the site but cannot edit the payment info, delete or duplicate the site.</el-radio>
-            <el-radio
-              :label="2"
-            >Back Office Manager: Can access the dashboard to manage site settings and apps but cannot edit the site.</el-radio>
-            <el-radio
-              :label="3"
-            >Website Manager: Can edit the site, manage settings and apps but cannor access inbox, contacts and other sensitive info.</el-radio>
-            <el-radio
-              :label="4"
-            >Bookings Admin: Has full access to your bookings calendar and contacts page, but cannot edit other areas of your site.</el-radio>
-            <el-radio
-              :label="5"
-            >Booking Staff Member: Can book their own clients, access their personal calendar and manage their sessions.</el-radio>
+            <el-radio :label="1">
+                <b>Admin:</b> Has full access to the site but cannot edit the payment info, delete or duplicate the site.</el-radio>
+            <el-radio :label="2">
+                <b>Back Office Manager:</b> Can access the dashboard to manage site settings and apps but cannot edit the site.</el-radio>
+            <el-radio :label="3">
+                <b>Website Manager:</b> Can edit the site, manage settings and apps but cannot access inbox, contacts and other sensitive info.</el-radio>
+            <el-radio :label="4">
+                <b>Bookings Admin:</b> Has full access to your bookings calendar and contacts page, but cannot edit other areas of your site.</el-radio>
+            <el-radio :label="5">
+                <b>Booking Staff Member:</b> Can book their own clients, access their personal calendar and manage their sessions.</el-radio>
           </el-radio-group>
           <div class="text-right pt-10">
             <el-button type="primary" size="small">Invite</el-button>
-            <el-button type="primary" size="small">Cancel</el-button>
+            <el-button type="primary" size="small" @click="dialogTableVisible">Cancel</el-button>
           </div>
         </el-form>
       </div>
@@ -100,86 +97,93 @@
 
 <script>
 export default {
-  name: "shopSetting",
+  name: "eShopSetting",
   data() {
     return {
-      shopData: {
-        shop_name: null,
-        members: []
-      },
+        fileList: "",
+        languages: [],
+        region:[],
+        currency: [],
+        shopData: {
+            shop_name : '',
+            shop_logo: '',
+            language: [{
+                "language_id":501,
+                "language_name":"Chinese Simplified",
+                "language_code":"chinese_simplified",
+                "language_symbol":"简体中文"
+                },
+                {
+                    "language_id":502,
+                    "language_name":"Chinese Traditional",
+                    "language_code":"chinese_traditional",
+                    "language_symbol":"中國傳統的"
+                },
+                {
+                    "language_id":503,
+                    "language_name":"English",
+                    "language_code":"english",
+                    "language_symbol":"English"
+                },
+                {
+                    "language_id":504,
+                    "language_name":"Tamil",
+                    "language_code":"tamil",
+                    "language_symbol":"தமிழ்"
+                }],
+            region: [{
+                value: "(GMT +08:00) Asia/Hong_Kong",
+                label: "(GMT +08:00) Asia/Hong_Kong"
+            },
+                {
+                    value: "(GMT +05:00) Asia/China",
+                    label: "(GMT +05:00) Asia/China"
+                },
+                {
+                    value: "(GMT +05:30) Asia/India",
+                    label: "(GMT +05:30) Asia/India"
+                },
+                {
+                    value: "(GMT +04:00) Asia/Nepal",
+                    label: "(GMT +04:00) Asia/Nepal"
+                }] ,
+            members : [],
+            currency: [{
+                currency_id: 501,
+                currency_name: "EUR",
+                currency_code: "eur",
+                currency_symbol: "€"
+            },
+                {
+                    currency_id: 502,
+                    currency_name: "USD",
+                    currency_code: "usd",
+                    currency_symbol: "$"
+                },
+                {
+                    currency_id: 503,
+                    currency_name: "YUAN",
+                    currency_code: "yuan",
+                    currency_symbol: "¥"
+                },
+                {
+                    currency_id: 504,
+                    currency_name: "INR",
+                    currency_code: "inr",
+                    currency_symbol: "₹"
+                }],
+        },
+
       // For Role Dialog
+      radio: false,
       dialogTableVisible: false,
       chooseRole: {
         email_wechatID: null
       },
-
-      fileList: "",
-      language: [],
-      region: [],
       billing_currency: [],
-      lang: [
-        {
-          value: "english",
-          label: "English"
-        },
-        {
-          value: "chinese",
-          label: "Chinese"
-        },
-        {
-          value: "chinese traditional",
-          label: "Chinese Traditional"
-        },
-        {
-          value: "chinese cultured",
-          label: "Chinese cultured"
-        }
-      ],
-      regions: [
-        {
-          value: "(GMT +08:00) Asia/Hong_Kong",
-          label: "(GMT +08:00) Asia/Hong_Kong"
-        },
-        {
-          value: "(GMT +05:00) Asia/China",
-          label: "(GMT +05:00) Asia/China"
-        },
-        {
-          value: "(GMT +05:30) Asia/India",
-          label: "(GMT +05:30) Asia/India"
-        },
-        {
-          value: "(GMT +04:00) Asia/Nepal",
-          label: "(GMT +04:00) Asia/Nepal"
-        }
-      ],
-      currency: [
-        {
-          currency_id: 501,
-          currency_name: "EUR",
-          currency_code: "eur",
-          currency_symbol: "€"
-        },
-        {
-          currency_id: 502,
-          currency_name: "USD",
-          currency_code: "usd",
-          currency_symbol: "$"
-        },
-        {
-          currency_id: 503,
-          currency_name: "YUAN",
-          currency_code: "yuan",
-          currency_symbol: "¥"
-        },
-        {
-          currency_id: 504,
-          currency_name: "INR",
-          currency_code: "inr",
-          currency_symbol: "₹"
-        }
-      ]
     };
+  },
+  computed: {
   },
   methods: {
     beforeRemove(file, fileList) {

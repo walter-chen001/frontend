@@ -5,18 +5,19 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display">
-            <el-checkbox :label="1" v-model="checked">Quantity Box</el-checkbox>
-            <el-checkbox :label="2">Allow Product Reviews</el-checkbox>
-            <el-checkbox :label="3" v-model="checked">Auto Approve Reviews</el-checkbox>
-            <el-checkbox :label="4">Enable Wishlist</el-checkbox>
-            <el-checkbox :label="5">Enable Product Thumbnail Images</el-checkbox>
-            <el-checkbox :label="6" v-model="checked">Show Product Price</el-checkbox>
-            <el-checkbox :label="7">Show Product Brand</el-checkbox>
-            <el-checkbox :label="8" v-model="checked">Show Product Shopping Cost</el-checkbox>
-            <el-checkbox :label="9" v-model="checked">Show Product Rating</el-checkbox>
-            <el-checkbox :label="10" v-model="checked">Show Expected Delivery Date</el-checkbox>
-            <el-checkbox :label="11" v-model="checked">Show "Add to Cart" Option</el-checkbox>
-            <el-checkbox :label="12" v-model="checked">Show Product SKU</el-checkbox>
+            <el-checkbox :label="1" v-model="quantity_box">Quantity Box</el-checkbox>
+            <el-checkbox :label="2" v-model="allow_p_review">Allow Product Reviews</el-checkbox>
+            <el-checkbox :label="3" v-model="auto_approve">Auto Approve Reviews</el-checkbox>
+            <el-checkbox :label="4" v-model="enable_wishlist">Enable Wishlist</el-checkbox>
+            <el-checkbox :label="5" v-model="enable_p_comparison">Enable Product Comparison</el-checkbox>
+            <el-checkbox :label="6" v-model="p_thumbnail_images">Enable Product Thumbnail Images</el-checkbox>
+            <el-checkbox :label="7" v-model="p_price">Show Product Price</el-checkbox>
+            <el-checkbox :label="8" v-model="p_brand">Show Product Brand</el-checkbox>
+            <el-checkbox :label="9" v-model="p_shipping_cost">Show Product Shopping Cost</el-checkbox>
+            <el-checkbox :label="10" v-model="p_rating">Show Product Rating</el-checkbox>
+            <el-checkbox :label="11" v-model="expected_delivery_date">Show Expected Delivery Date</el-checkbox>
+            <el-checkbox :label="12" v-model="add_to_cart">Show "Add to Cart" Option</el-checkbox>
+            <el-checkbox :label="13" v-model="add_to_cart">Show Product SKU</el-checkbox>
             <el-form-item label="New Product Parameter Set Up">
               <el-input v-model="display.enterNoOfDay" placeholder="Enter the no. of day"></el-input>
             </el-form-item>
@@ -35,12 +36,12 @@
           <p>Complex Password</p>
           <el-checkbox
             :label="securityPrivacy1"
-            v-model="checked"
-          >Enforce cpmplexity rule for shoppers password.</el-checkbox>
+            v-model="complex_pwd"
+          >Enforce complexity rule for shoppers password.</el-checkbox>
           <p>Cookie Consent Tracking</p>
-          <el-checkbox :label="securityPrivacy2">Yes, turn on cookie consent banner in my site.</el-checkbox>
-          <p>Analutics for my business</p>
-          <el-checkbox :label="securityPrivacy3" v-model="checked">
+          <el-checkbox :label="securityPrivacy2" v-model="cookie_consent_tracking">Yes, turn on cookie consent banner in my site.</el-checkbox>
+          <p>Analytics for my business</p>
+          <el-checkbox :label="securityPrivacy3" v-model="analytics_business">
             Track customer on screen behaviour (
             <a href="https://clicky.com/">https://clicky.com/</a>)
           </el-checkbox>
@@ -48,30 +49,30 @@
         <el-tab-pane label="Notification Settings" name="notificationSettings">
           <p>Product Review Notification</p>
           <el-checkbox
-            :label="notificationSettings1"
+            :label="notificationSettings1" v-model="p_review_notification"
           >Send message / emails to customers asking to review the purchased products.</el-checkbox>
           <p>Forward Order Invoice</p>
           <el-checkbox
             :label="notificationSettings2"
-            v-model="checked"
+            v-model="forward_order_invoice"
           >Send message / emails of their order invoices</el-checkbox>
           <p>Forward Shipping Status</p>
           <el-checkbox
-            :label="notificationSettings3"
-          >Send message / email whenever there is a change in the shipping status of the product.</el-checkbox>
+            :label="notificationSettings3" v-model="forward_shipping_status">
+            Send message / email whenever there is a change in the shipping status of the product.</el-checkbox>
           <p class="checkboxHeading">
-            <el-checkbox :label="notificationSettings4" v-model="checked"></el-checkbox>Abandoned Card Notification
+            <el-checkbox :label="notificationSettings4" v-model="abandoned_cart_notification"></el-checkbox>Abandoned Card Notification
           </p>
           <p>Product Page Inventory Level Notification</p>
           <el-checkbox
-            :label="notificationSettings5"
+            :label="notificationSettings5" v-model="p_page_inventory.always_notify"
           >Always notify the current inventory level of the product in the product page of the e-shop</el-checkbox>
           <el-checkbox
-            :label="notificationSettings6"
+            :label="notificationSettings6" v-model="p_page_inventory.notify_current"
           >Notify the current inventory level if the product in the product page if the e-shop only if it falls below the low inventory level.</el-checkbox>
           <el-checkbox
             :label="notificationSettings7"
-            v-model="checked"
+            v-model="p_page_inventory.notify_p_low"
           >Notify that the inventory level of this product is low but not the exact inventory level of the product in the product page of the e-shop, if it falls below the low inventory level.</el-checkbox>
         </el-tab-pane>
       </el-tabs>
@@ -84,7 +85,31 @@ export default {
   name: "storeSetting",
   data() {
     return {
-      checked: true,
+        quantity_box: false,
+        allow_p_review: false, //p - product
+        auto_approve: false,
+        enable_wishlist: false,
+        enable_p_comparison: false,
+        p_thumbnail_images: false,
+        p_price: false,
+        p_brand: false,
+        p_shipping_cost: false,
+        p_rating: false,
+        expected_delivery_date: false,
+        add_to_cart: false,
+        p_sku: false,
+        complex_pwd: false,
+        cookie_consent_tracking: false,
+        analytics_business: false,
+        p_review_notification: false,
+        forward_order_invoice: false,
+        forward_shipping_status: false,
+        abandoned_cart_notification: false,
+        p_page_inventory: {
+            always_notify: false,
+            notify_current: false,
+            notify_p_low: false,
+        },
       value1: false,
       activeName: "display",
       display: {

@@ -1,4 +1,3 @@
-// import ShopSetting from '@/components/eShopSettings/shopSettingIndex.vue'
 
 import Public_template from '@/views/public_template.vue'
 import shopSetting from '@/views/eShopSetting/shopSetting.vue'
@@ -14,7 +13,7 @@ import publishSetting from '@/views/eShopSetting/publishSetting.vue'
 
 const eshopSettingRouter = {
     path: '/eShopSetting',
-    name: 'onlineShopSetting',
+    name: 'setting',
     component: Public_template,
     children: [
         {
