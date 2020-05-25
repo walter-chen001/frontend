@@ -51,7 +51,6 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-
             <el-form-item label="Members(User Right)" prop="members">
               <el-input @click="openRoleDialog" v-model="shopData.members" readonly></el-input>
               <el-button
@@ -90,9 +89,8 @@
             <el-form-item label="Email / Wechat ID" prop="email_wechatID">
               <el-input v-model="chooseRole.email_wechatID"></el-input>
             </el-form-item>
-            <p>Whatever role you choose to assign, only you can transfer, duplicate or delete this site, or access the billing info.</p>
 
-            <el-form-item label="Resources" prop="radio">
+            <el-form-item label="Whatever role you choose to assign, only you can transfer, duplicate or delete this site, or access the billing info." prop="radio">
               <el-radio-group v-model="chooseRole.radio">
                 <el-radio :label="1">
                   <strong>Admin:</strong> Has full access to the site but cannot edit the payment info, delete or duplicate the site.
