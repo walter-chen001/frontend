@@ -1,7 +1,6 @@
 <template>
   <el-row :gutter="0" type="flex" justify="center" class="centerSection">
     <div class="sectionContainer">
-      
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-switch v-model="value1" active-text inactive-text="Store Status"></el-switch>
         <el-tab-pane label="Display" name="display">
@@ -30,9 +29,6 @@
             <el-checkbox :label="14">Product Rating</el-checkbox>
             <el-checkbox :label="15">Sales Amount</el-checkbox>
             <el-checkbox :label="16">Top Searched Products</el-checkbox>
-            <!-- <div class="text-right pt-10">
-              <el-button type="primary" size="small">Continue</el-button>
-            </div> -->
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="Security &amp; Privacy " name="securityPrivacy">
@@ -84,6 +80,9 @@
             :label="notificationSettings7"
             v-model="p_page_inventory.notify_p_low"
           >Notify that the inventory level of this product is low but not the exact inventory level of the product in the product page of the e-shop, if it falls below the low inventory level.</el-checkbox>
+          <div class="text-right pt-10">
+            <el-button type="primary" size="small">Save</el-button>
+          </div>
         </el-tab-pane>
       </el-tabs>
     </div>

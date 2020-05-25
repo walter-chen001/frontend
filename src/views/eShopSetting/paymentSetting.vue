@@ -25,6 +25,9 @@
             <el-form-item label="IABN Number">
               <el-input v-model="wechat.iabn_no"></el-input>
             </el-form-item>
+            <div class="text-right pt-10">
+              <el-button type="primary" size="small">Save</el-button>
+            </div>
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="Ali Pay Set Up">
@@ -51,6 +54,9 @@
             <el-form-item label="IABN Number">
               <el-input v-model="stripe.iabn_no"></el-input>
             </el-form-item>
+            <div class="text-right pt-10">
+              <el-button type="primary" size="small">Save</el-button>
+            </div>
           </el-form>
         </el-tab-pane>
       </el-tabs>
