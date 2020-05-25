@@ -85,7 +85,7 @@ export default {
                         "moduleName": "Shop 设置", //shop-setting
                         "isModul": true,
                         "parentID": "106",
-                        "link": "/eShopSetting/eShopSetting",
+                        "link": "/eShopSetting/shopSetting",
                         "icon": ""
                     },{
                         "type": "m010",
