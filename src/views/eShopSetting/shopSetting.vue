@@ -11,7 +11,6 @@
             <el-form-item label="E-Shop logo" prop="shop_logo">
               <el-upload
                 class="upload-demo"
-                :on-preview="handlePreview"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
                 :on-change="handleLogoChange"
