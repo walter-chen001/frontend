@@ -1,8 +1,9 @@
 <template>
   <el-row :gutter="0" type="flex" justify="center" class="centerSection">
     <div class="sectionContainer">
-      <el-switch v-model="value1" active-text="" inactive-text="Store Status"></el-switch>
+      
       <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-switch v-model="value1" active-text inactive-text="Store Status"></el-switch>
         <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display">
             <el-checkbox :label="1" v-model="quantity_box">Quantity Box</el-checkbox>
@@ -18,18 +19,20 @@
             <el-checkbox :label="11" v-model="expected_delivery_date">Show Expected Delivery Date</el-checkbox>
             <el-checkbox :label="12" v-model="add_to_cart">Show "Add to Cart" Option</el-checkbox>
             <el-checkbox :label="13" v-model="add_to_cart">Show Product SKU</el-checkbox>
-            <el-form-item label="New Product Parameter Set Up">
+
+            <p class="bg-gray-header">New Product Parameter Set Up</p>
+            <el-form-item label>
               <el-input v-model="display.enterNoOfDay" placeholder="Enter the no. of day"></el-input>
             </el-form-item>
 
-            <p>Best Seller Parameter Set Up</p>
+            <p class="bg-gray-header">Best Seller Parameter Set Up</p>
             <el-checkbox :label="13" v-model="checked">Sales Volume</el-checkbox>
             <el-checkbox :label="14">Product Rating</el-checkbox>
             <el-checkbox :label="15">Sales Amount</el-checkbox>
             <el-checkbox :label="16">Top Searched Products</el-checkbox>
-            <div class="text-right pt-10">
+            <!-- <div class="text-right pt-10">
               <el-button type="primary" size="small">Continue</el-button>
-            </div>
+            </div> -->
           </el-form>
         </el-tab-pane>
         <el-tab-pane label="Security &amp; Privacy " name="securityPrivacy">
@@ -39,7 +42,10 @@
             v-model="complex_pwd"
           >Enforce complexity rule for shoppers password.</el-checkbox>
           <p>Cookie Consent Tracking</p>
-          <el-checkbox :label="securityPrivacy2" v-model="cookie_consent_tracking">Yes, turn on cookie consent banner in my site.</el-checkbox>
+          <el-checkbox
+            :label="securityPrivacy2"
+            v-model="cookie_consent_tracking"
+          >Yes, turn on cookie consent banner in my site.</el-checkbox>
           <p>Analytics for my business</p>
           <el-checkbox :label="securityPrivacy3" v-model="analytics_business">
             Track customer on screen behaviour (
@@ -49,7 +55,8 @@
         <el-tab-pane label="Notification Settings" name="notificationSettings">
           <p>Product Review Notification</p>
           <el-checkbox
-            :label="notificationSettings1" v-model="p_review_notification"
+            :label="notificationSettings1"
+            v-model="p_review_notification"
           >Send message / emails to customers asking to review the purchased products.</el-checkbox>
           <p>Forward Order Invoice</p>
           <el-checkbox
@@ -58,17 +65,20 @@
           >Send message / emails of their order invoices</el-checkbox>
           <p>Forward Shipping Status</p>
           <el-checkbox
-            :label="notificationSettings3" v-model="forward_shipping_status">
-            Send message / email whenever there is a change in the shipping status of the product.</el-checkbox>
+            :label="notificationSettings3"
+            v-model="forward_shipping_status"
+          >Send message / email whenever there is a change in the shipping status of the product.</el-checkbox>
           <p class="checkboxHeading">
             <el-checkbox :label="notificationSettings4" v-model="abandoned_cart_notification"></el-checkbox>Abandoned Card Notification
           </p>
           <p>Product Page Inventory Level Notification</p>
           <el-checkbox
-            :label="notificationSettings5" v-model="p_page_inventory.always_notify"
+            :label="notificationSettings5"
+            v-model="p_page_inventory.always_notify"
           >Always notify the current inventory level of the product in the product page of the e-shop</el-checkbox>
           <el-checkbox
-            :label="notificationSettings6" v-model="p_page_inventory.notify_current"
+            :label="notificationSettings6"
+            v-model="p_page_inventory.notify_current"
           >Notify the current inventory level if the product in the product page if the e-shop only if it falls below the low inventory level.</el-checkbox>
           <el-checkbox
             :label="notificationSettings7"
@@ -85,31 +95,31 @@ export default {
   name: "storeSetting",
   data() {
     return {
-        quantity_box: false,
-        allow_p_review: false, //p - product
-        auto_approve: false,
-        enable_wishlist: false,
-        enable_p_comparison: false,
-        p_thumbnail_images: false,
-        p_price: false,
-        p_brand: false,
-        p_shipping_cost: false,
-        p_rating: false,
-        expected_delivery_date: false,
-        add_to_cart: false,
-        p_sku: false,
-        complex_pwd: false,
-        cookie_consent_tracking: false,
-        analytics_business: false,
-        p_review_notification: false,
-        forward_order_invoice: false,
-        forward_shipping_status: false,
-        abandoned_cart_notification: false,
-        p_page_inventory: {
-            always_notify: false,
-            notify_current: false,
-            notify_p_low: false,
-        },
+      quantity_box: false,
+      allow_p_review: false, //p - product
+      auto_approve: false,
+      enable_wishlist: false,
+      enable_p_comparison: false,
+      p_thumbnail_images: false,
+      p_price: false,
+      p_brand: false,
+      p_shipping_cost: false,
+      p_rating: false,
+      expected_delivery_date: false,
+      add_to_cart: false,
+      p_sku: false,
+      complex_pwd: false,
+      cookie_consent_tracking: false,
+      analytics_business: false,
+      p_review_notification: false,
+      forward_order_invoice: false,
+      forward_shipping_status: false,
+      abandoned_cart_notification: false,
+      p_page_inventory: {
+        always_notify: false,
+        notify_current: false,
+        notify_p_low: false
+      },
       value1: false,
       activeName: "display",
       display: {
@@ -133,13 +143,10 @@ export default {
   }
 }
 .el-switch {
-    position: absolute!important;
-    right: 10px;
-    top: 10px;
-    z-index: 2;
-    .el-switch__label--left span {
-        font-size: 12px;
-    }
+  margin-bottom: 15px;
+  .el-switch__label--left span {
+    font-size: 12px;
+  }
 }
 .el-tabs--top .el-tabs__item.is-top:nth-child(2) {
   padding-left: 15px !important;
@@ -161,5 +168,13 @@ export default {
   .el-checkbox:last-of-type {
     margin-right: 10px;
   }
+}
+.bg-gray-header {
+  font-size: 14px;
+  background: #eef1f6;
+  padding: 10px;
+  color: #666;
+  font-weight: 700;
+  margin-bottom: 5px;
 }
 </style>
