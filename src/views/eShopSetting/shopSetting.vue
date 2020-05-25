@@ -2,7 +2,7 @@
   <el-row :gutter="0" type="flex" justify="center" class="centerSection">
     <div class="sectionContainer">
       <el-card class="box-card">
-        <el-form ref="shopData" :model="shopData">
+        <el-form ref="shopData" :model="shopData" :rules="rules">
           <el-form-item label="E-Shop Name">
             <el-input v-model="shopData.shop_name"></el-input>
           </el-form-item>
@@ -22,7 +22,6 @@
               </el-button>
             </el-upload>
           </el-form-item>
-            {{languages}} ----------
           <el-form-item label="Supported Languages">
             <el-select v-model="languages" multiple multiple-limit="3" placeholder="Select">
               <el-option
@@ -58,7 +57,7 @@
             </el-select>
           </el-form-item>
           <div class="text-right pt-10">
-            <el-button type="primary" size="small">Continue</el-button>
+            <el-button type="primary" size="small" @click="saveDraft('shopData')">Save as Draft</el-button>
           </div>
         </el-form>
       </el-card>
@@ -67,13 +66,16 @@
     <el-dialog title="Choose Role" style="width: 120%" :visible.sync="dialogTableVisible">
       <div class="chooseRole">
         <el-form ref="chooseRole" :model="chooseRole">
-          <el-form-item label="Email / Wechat ID">
+          <el-form-item label="Email / Wechat ID" :rules="[
+              { required: true, message: 'Please input email address', trigger: 'blur' },
+              { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
+            ]">
             <el-input v-model="chooseRole.email_wechatID"></el-input>
           </el-form-item>
            <!--<h4 class="mb-0">Choose Role</h4>-->
-            {{radio}} ------------
-          <p>Whatever role you choose to assisgn, only you can transfer, duplicate or delete this site, or access the billing info.</p>
-          <el-radio-group v-model="radio">
+          <p>Whatever role you choose to assign, only you can transfer, duplicate or delete this site, or access the billing info.</p>
+          <el-radio-group v-model="radio" :rules="[
+            {required: true, message: 'Please choose role', trigger: 'blur' }]">
             <el-radio :label="1">
                 <b>Admin:</b> Has full access to the site but cannot edit the payment info, delete or duplicate the site.</el-radio>
             <el-radio :label="2">
@@ -86,8 +88,8 @@
                 <b>Booking Staff Member:</b> Can book their own clients, access their personal calendar and manage their sessions.</el-radio>
           </el-radio-group>
           <div class="text-right pt-10">
-            <el-button type="primary" size="small">Invite</el-button>
-            <el-button type="primary" size="small" @click="dialogTableVisible">Cancel</el-button>
+            <el-button type="primary" size="small" @click="inviteMembers('chooseRole')">Invite</el-button>
+            <el-button type="primary" size="small" @click="closeDialog">Cancel</el-button>
           </div>
         </el-form>
       </div>
@@ -134,7 +136,7 @@ export default {
             region: [{
                 value: "(GMT +08:00) Asia/Hong_Kong",
                 label: "(GMT +08:00) Asia/Hong_Kong"
-            },
+                },
                 {
                     value: "(GMT +05:00) Asia/China",
                     label: "(GMT +05:00) Asia/China"
@@ -153,7 +155,7 @@ export default {
                 currency_name: "EUR",
                 currency_code: "eur",
                 currency_symbol: "€"
-            },
+                },
                 {
                     currency_id: 502,
                     currency_name: "USD",
@@ -173,6 +175,18 @@ export default {
                     currency_symbol: "₹"
                 }],
         },
+        rules: {
+            shop_name: [
+                {required: true, message: 'Please input Shop name', trigger: 'blur'},
+                {min: 3, max: 50, message: 'Length should be 3 to 50', trigger: 'blur'}
+            ],
+            shop_logo: [
+                {required: true, message: 'Please upload logo', trigger: 'change'}
+            ],
+            language: [
+                {required: true, message: 'Please select any 3 languages', trigger: 'change'}
+            ],
+        },
 
       // For Role Dialog
       radio: false,
@@ -188,7 +202,30 @@ export default {
   methods: {
     beforeRemove(file, fileList) {
       return this.$confirm(`Cancel the transfert of ${file.name} ?`);
-    }
+    },
+    closeDialog(){
+      this.dialogTableVisible = false;
+    },
+    inviteMembers(formName){
+        this.$refs[formName].validate((valid) => {
+            if (valid) {
+                alert('Invited!');
+            } else {
+                console.log('error in inviting!!');
+                return false;
+            }
+        });
+    },
+    saveDraft(formData){
+        this.$refs[formData].validate((valid) => {
+            if (valid) {
+                alert('saved successfully!');
+            } else {
+                console.log('error in saving!!');
+                return false;
+            }
+        });
+    },
   }
 };
 </script>
