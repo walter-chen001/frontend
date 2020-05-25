@@ -65,28 +65,26 @@
 
     <el-dialog title="Choose Role" style="width: 120%" :visible.sync="dialogTableVisible">
       <div class="chooseRole">
-        <el-form ref="chooseRole" :model="chooseRole">
-          <el-form-item label="Email / Wechat ID" :rules="[
-              { required: true, message: 'Please input email address', trigger: 'blur' },
-              { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
-            ]">
+        <el-form ref="chooseRole" :model="chooseRole" class="demo-chooseRole" :rules="chooseRule">
+          <el-form-item label="Email / Wechat ID">
             <el-input v-model="chooseRole.email_wechatID"></el-input>
           </el-form-item>
            <!--<h4 class="mb-0">Choose Role</h4>-->
-          <p>Whatever role you choose to assign, only you can transfer, duplicate or delete this site, or access the billing info.</p>
-          <el-radio-group v-model="radio" :rules="[
-            {required: true, message: 'Please choose role', trigger: 'blur' }]">
-            <el-radio :label="1">
-                <b>Admin:</b> Has full access to the site but cannot edit the payment info, delete or duplicate the site.</el-radio>
-            <el-radio :label="2">
-                <b>Back Office Manager:</b> Can access the dashboard to manage site settings and apps but cannot edit the site.</el-radio>
-            <el-radio :label="3">
-                <b>Website Manager:</b> Can edit the site, manage settings and apps but cannot access inbox, contacts and other sensitive info.</el-radio>
-            <el-radio :label="4">
-                <b>Bookings Admin:</b> Has full access to your bookings calendar and contacts page, but cannot edit other areas of your site.</el-radio>
-            <el-radio :label="5">
-                <b>Booking Staff Member:</b> Can book their own clients, access their personal calendar and manage their sessions.</el-radio>
-          </el-radio-group>
+            <el-form-item label="Whatever role you choose to assign, only you can
+            transfer, duplicate or delete this site, or access the billing info.">
+                <el-radio-group v-model="radio">
+                    <el-radio :label="1">
+                        <b>Admin:</b>Has full access to the site but cannot edit the payment info, delete or duplicate the site.</el-radio>
+                    <el-radio :label="2">
+                        <b>Back Office Manager:</b> Can access the dashboard to manage site settings and apps but cannot edit the site.</el-radio>
+                    <el-radio :label="3">
+                        <b>Website Manager:</b> Can edit the site, manage settings and apps but cannot access inbox, contacts and other sensitive info.</el-radio>
+                    <el-radio :label="4">
+                        <b>Bookings Admin:</b> Has full access to your bookings calendar and contacts page, but cannot edit other areas of your site.</el-radio>
+                    <el-radio :label="5">
+                        <b>Booking Staff Member:</b> Can book their own clients, access their personal calendar and manage their sessions.</el-radio>
+                </el-radio-group>
+            </el-form-item>
           <div class="text-right pt-10">
             <el-button type="primary" size="small" @click="inviteMembers('chooseRole')">Invite</el-button>
             <el-button type="primary" size="small" @click="closeDialog">Cancel</el-button>
@@ -186,6 +184,21 @@ export default {
             language: [
                 {required: true, message: 'Please select any 3 languages', trigger: 'change'}
             ],
+            region: [
+                {required: true, message: 'Please select region', trigger: 'change'},
+            ],
+            currency: [
+                {required: true, message: 'Please select any 3 currency', trigger: 'change'},
+            ],
+        },
+        chooseRule: {
+            email_wechatID : [
+                { required: true, message: 'Please input email address', trigger: 'change' },
+                { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
+            ],
+            radio: [
+                {required: true, message: 'Please choose role', trigger: 'change' }
+            ]
         },
 
       // For Role Dialog
