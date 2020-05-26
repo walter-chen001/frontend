@@ -6,7 +6,7 @@ const setting = {
         shop: {
             shop_name: '',
             shop_logo: '',
-            region: [],
+            region: "",
             language: [],
             currency: [],
         },
