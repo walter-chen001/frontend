@@ -7,18 +7,20 @@
             <el-form-item label="E-Shop Name" prop="shop_name">
               <el-input v-model="shopData.shop_name"></el-input>
             </el-form-item>
+            {{shopData.shop_logo}} ------
 
             <el-form-item label="E-Shop logo" prop="shop_logo">
               <el-upload
                 class="upload-demo"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
+                :on-success="handleSuccess"
+                :data="uploadData"
                 :on-change="handleLogoChange"
                 action="#"
                 :auto-upload="false"
                 multiple
                 :limit="1"
-                :file-list="shopData.shop_logo"
               >
                 <el-button native-type="button" size="large">
                   Upload
@@ -26,6 +28,8 @@
                 </el-button>
               </el-upload>
             </el-form-item>
+            </el-form-item>
+
             <el-form-item label="Supported Languages" prop="language">
               <el-select
                 v-model="shopData.language"
@@ -134,8 +138,17 @@ export default {
         callback();
       }
     };
+    const uploadLogo = ({field}, value, callback) => {
+        console.log('file upload',field, value, callback, 'ssjdbbfdjfbmdj');
+      if(value.length < 1) {
+          callback(new Error(`Please upload logo ${field}`));
+      }  else {
+          callback();
+      }
+    };
 
     return {
+      uploadData: {user_id: '', pathName: ''},
       shopData: {
         shop_name: "",
         shop_logo: "",
@@ -231,7 +244,7 @@ export default {
           }
         ],
         shop_logo: [
-          { required: true, message: "Please upload logo", trigger: "change" }
+          { required: true, message: "Please upload logo", trigger: "change" },
         ],
         region: [
           { required: true, message: "Please Time Region", trigger: "change" }
@@ -313,6 +326,13 @@ export default {
     },
     handleLogoChange(e, b, c) {
       console.log(e, b, c);
+    },
+    handleSuccess (res, file, fileList) {
+        console.log('res', res, 'file', file, 'fileList', fileList);
+        // Here you can write the file after the successful upload, but be sure to remember to assign value to fileUrl
+        this.shopData.shop_logo = 'shop_logo';
+        // The file form will not be triggered after the file is uploaded. You must manually add the verification.
+        this.$refs.shopData.validateField('shop_logo')
     },
     selectRole(val) {
       switch (val) {
