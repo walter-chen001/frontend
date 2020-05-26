@@ -1,4 +1,8 @@
 import api from '@/api/eShopSetting/onlineShopSetting'
+// import store from '../../index'
+// import getters from '../../getters'
+
+// console.log(getters.user_id().user_id, 'sssssssssssssssstttttttttttttoooooooooooorrrrrrrrrrrrreeeeeeeeeee');
 
 const setting = {
     namespaced: true,
@@ -6,7 +10,7 @@ const setting = {
         shop: {
             shop_name: '',
             shop_logo: '',
-            region: [],
+            region: '',
             language: [],
             currency: [],
         },
@@ -48,6 +52,16 @@ const setting = {
 
     },
     actions: {
+        getShopData({ commit }, obj) {
+            return new Promise((resolve, reject) => {
+                api.getShopData(obj).then(response => {
+                    resolve(response)
+                }).catch(err => {
+                    reject(err);
+                    console.log(err)
+                })
+            })
+        },
 
     },
 };

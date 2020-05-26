@@ -21,6 +21,6 @@ const store = new Vuex.Store({
 	parameter
   },
   getters
-})
+});
 
 export default store
