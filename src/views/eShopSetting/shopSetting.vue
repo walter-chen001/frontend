@@ -201,12 +201,9 @@ export default {
       return this.$confirm(`Cancel the transfer of ${file.name} ?`);
     },
     update(obj){
-        var data={
-            data : {...obj, user_id : this.user_id}
-        };
-        updateShop.default.updateData().then(response => {
+        var data= {...obj, user_id : this.user_id};
+        updateShop.default.updateShopData(data).then(response => {
             if(response.code==0){
-                console.log('successssssssssssss', response.data);
                 this.$notify.success({title:"提示",message:response.msg});
             }else{
                 this.$notify.error({title:'提示',message:response.msg});
