@@ -3,12 +3,11 @@
     <el-row :gutter="0" type="flex" justify="center" class="centerSection">
       <div class="sectionContainer">
         <el-card class="box-card">
-          {{shopData.regionList}}
           <el-form :model="shop" ref="shop" :rules="shopDetailrules">
             <el-form-item label="E-Shop Name" prop="shop_name">
               <el-input v-model="shop.name"></el-input>
             </el-form-item>
-            <el-form-item label="E-Shop logo" prop="logo">
+            <el-form-item label="E-Shop logo" prop="logo" required ref="upl" :onFieldChange="myChange()">
               <el-upload
                 class="upload-demo"
                 ref="upload"
@@ -100,7 +99,7 @@ export default {
       }
     };
 
-    const uploadValidation = ({ field }, value, callback) => {
+    let uploadValidation = ({ field }, value, callback) => {
       if (this.logo.length < 1) {
         callback(new Error(`Please upload shop logo`));
       } else {
@@ -134,7 +133,7 @@ export default {
           //   message: "Please upload shop logo 1",
           //   trigger: "change"
           // },
-          { trigger: "blur", validator: uploadValidation }
+          { trigger: "change", validator: uploadValidation }
         ],
         region: [
           { required: true, message: "Please Time Region", trigger: "change" }
@@ -180,6 +179,12 @@ export default {
     }
   },
   methods: {
+    myChange() {
+        console.log('Changed');
+        if (this.logo.length !== 0) {
+            this.$refs.upl.resetField();
+        }
+    },
     getData() {
       shopApi
         .getShopData()
@@ -198,6 +203,7 @@ export default {
       return this.$confirm(`Cancel the transfert of ${file.name} ?`);
     },
     addAttachment(file, fileList) {
+        console.log(file);
       this.logo.push(file);
       this.shop.shop_logo = this.logo;
     },
@@ -235,9 +241,8 @@ export default {
     //     this.update({'language': val})
     // },
     submitToSave(formData) {
+        console.log(this.$refs.upl);
       var data = { ...this.shop, user_id: this.user_id };
-      console.log(data, "jsgdsjhdgsajhdsjhdvsfhmsavafsmfvsmfhvsmhjfvh");
-      console.log(this.$refs[formData].validate);
       this.$refs[formData].validate(valid => {
         if (valid) {
           updateShop
