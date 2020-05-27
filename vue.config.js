@@ -46,6 +46,12 @@ module.exports = {
                     '^/img': ''
                 }
             },
+            '/cgs_api': {
+                target: 'http://54.188.203.178:3009',
+                changeOrigin: true,
+                pathRewrite: { '^/cgs_api': '' },
+                router:mockServer.router(host,port,serverHost)
+            },
 
         }
     },
