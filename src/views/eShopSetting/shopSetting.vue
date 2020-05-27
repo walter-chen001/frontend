@@ -8,16 +8,18 @@
             <el-form-item label="E-Shop Name" prop="shop_name">
               <el-input v-model="shop.shop_name" @change="changeShopName"></el-input>
             </el-form-item>
-            <el-form-item label="E-Shop logo" prop="shop_logo">
+            {{logo}} -------- {{uploadData}}
+            <el-form-item label="E-Shop logo">
               <el-upload
                 class="upload-demo"
                 ref="upload"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
                 @on-success="handleSuccess"
+                :http-request="uploadLogo"
                 :data="uploadData"
-                :action="action"
-                :auto-upload="true"
+                :file-List="logo"
+                :auto-upload="false"
                 multiple
                 :limit="1"
               >
@@ -97,9 +99,10 @@ export default {
     };
 
     return {
-        action: `https://jsonplaceholder.typicode.com/posts/`,
-        uploadData: {user_id: user_id, pathName: 'company'},
+        action: '',
+        uploadData: {user_id: this.user_id},
         shopData: [],
+        logo: [],
         DataShop: [],
         shopDetailrules: {
             shop_name: [
@@ -115,9 +118,9 @@ export default {
                     trigger: "blur"
                 }
             ],
-            shop_logo: [
-                {required: true, message: "Please upload logo", trigger: "change"},
-            ],
+            // shop_logo: [
+            //     {required: true, message: "Please upload logo", trigger: "change"},
+            // ],
             region: [
                 {required: true, message: "Please Time Region", trigger: "change"}
             ],
@@ -165,11 +168,16 @@ export default {
       }
   },
   methods: {
+    uploadLogo(file, fileList) {
+      console.log(file, 'fileeeeeeeeeeeeeeeeeeeeeeeee');
+      this.logo.push(file);
+      this.shop.shop_logo = this.logo;
+      console.log(this.shop.shop_logo, 'logooooooooooooooooooooooooooooooooo');
+    },
     getData(){
         shopApi.default.getShopData().then(response => {
             if(response.code==0){
                 this.shopData = response.data;
-                this.$notify.success({title:"提示",message:response.msg});
             }else{
                 this.$notify.error({title:'提示',message:response.msg});
             }

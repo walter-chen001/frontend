@@ -9,7 +9,7 @@ const setting = {
     state: {
         shop: {
             shop_name: '',
-            shop_logo: '',
+            shop_logo: [],
             region: '',
             language: [],
             currency: [],
