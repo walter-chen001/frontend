@@ -8,10 +8,10 @@ const setting = {
     namespaced: true,
     state: {
         shop: {
-            shop_name: '',
+            name: '',
             shop_logo: [],
             region: '',
-            language: [],
+            languages: [],
             currency: [],
         },
         stores: {
