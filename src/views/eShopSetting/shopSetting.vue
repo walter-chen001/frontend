@@ -26,12 +26,7 @@
               </el-upload>
             </el-form-item>
             <el-form-item label="Supported Languages" prop="language">
-              <el-select
-                v-model="shop.languages"
-                multiple
-                multiple-limit="3"
-                placeholder="Select"
-              >
+              <el-select v-model="shop.languages" multiple multiple-limit="3" placeholder="Select">
                 <el-option
                   v-for="item in shopData.languages"
                   :key="item.value"
@@ -43,40 +38,35 @@
             <el-form-item label="Region Parent" prop="region_parent">
               <el-select v-model="shop.region" placeholder="Select">
                 <el-option
-                        v-for="item in shopData.regionList"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
+                  v-for="item in shopData.regionList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
                 ></el-option>
               </el-select>
             </el-form-item>
             <!--<el-form-item label="Region child" prop="region_child">-->
-              <!--<el-select v-model="shop.region.region_child" placeholder="Select">-->
-                <!--<el-option-->
-                        <!--v-for="item in shopData.regionList"-->
-                        <!--:key="item.value"-->
-                        <!--:label="item.label"-->
-                        <!--:value="item.value"-->
-                <!--&gt;</el-option>-->
-              <!--</el-select>-->
+            <!--<el-select v-model="shop.region.region_child" placeholder="Select">-->
+            <!--<el-option-->
+            <!--v-for="item in shopData.regionList"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value"-->
+            <!--&gt;</el-option>-->
+            <!--</el-select>-->
             <!--</el-form-item>-->
             <!--<el-form-item label="Region sub child" prop="region_sub_child">-->
-              <!--<el-select v-model="shop.region.region_sub_child" placeholder="Select">-->
-                <!--<el-option-->
-                        <!--v-for="item in shopData.regionList"-->
-                        <!--:key="item.value"-->
-                        <!--:label="item.label"-->
-                        <!--:value="item.value"-->
-                <!--&gt;</el-option>-->
-              <!--</el-select>-->
+            <!--<el-select v-model="shop.region.region_sub_child" placeholder="Select">-->
+            <!--<el-option-->
+            <!--v-for="item in shopData.regionList"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value"-->
+            <!--&gt;</el-option>-->
+            <!--</el-select>-->
             <!--</el-form-item>-->
             <el-form-item label="Billing Currency" prop="currency">
-              <el-select
-                v-model="shop.currency"
-                multiple
-                multiple-limit="3"
-                placeholder="Select"
-              >
+              <el-select v-model="shop.currency" multiple multiple-limit="3" placeholder="Select">
                 <el-option
                   v-for="item in shopData.currency"
                   :key="item.value"
@@ -96,7 +86,6 @@
 </template>
 
 <script>
-
 import { default as shopApi } from "../../api/eShopSetting/onlineShopSetting";
 import { default as updateShop } from "../../cgs_api/eShopSetting/onlineShopSetting";
 
@@ -111,7 +100,7 @@ export default {
       }
     };
 
-    const uploadValidation = ({field}, value, callback) => {
+    const uploadValidation = ({ field }, value, callback) => {
       if (this.logo.length < 1) {
         callback(new Error(`Please upload shop logo`));
       } else {
@@ -145,7 +134,7 @@ export default {
           //   message: "Please upload shop logo 1",
           //   trigger: "change"
           // },
-          { trigger: "blur" , validator: uploadValidation}
+          { trigger: "blur", validator: uploadValidation }
         ],
         region: [
           { required: true, message: "Please Time Region", trigger: "change" }
@@ -206,7 +195,7 @@ export default {
         });
     },
     beforeRemove(file, fileList) {
-        return this.$confirm(`Cancel the transfert of ${ file.name } ?`);
+      return this.$confirm(`Cancel the transfert of ${file.name} ?`);
     },
     addAttachment(file, fileList) {
       this.logo.push(file);
@@ -220,7 +209,9 @@ export default {
       var data = {
         data: { ...obj, user_id: this.user_id }
       };
-      updateShop.updateData().then(response => {
+      updateShop
+        .updateData()
+        .then(response => {
           if (response.code == 0) {
             this.$notify.success({ title: "提示", message: response.msg });
           } else {
