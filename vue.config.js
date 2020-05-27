@@ -1,6 +1,6 @@
 const mockServer = require('./mockServer.js');
-const host ="168.168.2.105";
-const port ="8099";
+const host ="0.0.0.0";
+const port ="3010";
 const serverHost = "http://apidoc.ebixdev.cn:3000/mock/14";
 const Timestamp = new Date().getTime();  //当前时间为了防止打包缓存不刷新，所以给每个js文件都加一个时间戳
 // const serverHost = "http://168.168.2.17:3000/mock/15"
@@ -24,8 +24,8 @@ module.exports = {
         /* 自动打开浏览器 */
         open: true,
         /* 设置为0.0.0.0则所有的地址均能访问 */
-        // host: host,
-        host: '0.0.0.0',
+         host: host,
+        //host: '0.0.0.0',
         port: port,
         // https: false,
         // hotOnly: false,
