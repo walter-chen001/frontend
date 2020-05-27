@@ -2,21 +2,24 @@
   <div>
     <el-row :gutter="0" type="flex" justify="center" class="centerSection">
       <div class="sectionContainer">
+          {{user_id}} --------
         <el-card class="box-card">
           <el-form :model="shop" ref="shop" :rules="shopDetailrules">
             <el-form-item label="E-Shop Name" prop="shop_name">
               <el-input v-model="shop.shop_name" @change="changeShopName"></el-input>
             </el-form-item>
-            <el-form-item label="E-Shop logo" prop="shop_logo">
+            {{logo}} -------- {{uploadData}}
+            <el-form-item label="E-Shop logo">
               <el-upload
                 class="upload-demo"
                 ref="upload"
                 :on-remove="handleRemove"
                 :before-remove="beforeRemove"
                 @on-success="handleSuccess"
+                :http-request="uploadLogo"
                 :data="uploadData"
-                :action="action"
-                :auto-upload="true"
+                :file-List="logo"
+                :auto-upload="false"
                 multiple
                 :limit="1"
               >
@@ -26,7 +29,6 @@
                 </el-button>
               </el-upload>
             </el-form-item>
-
             <el-form-item label="Supported Languages" prop="language">
               <el-select
                 v-model="shop.language"
@@ -36,17 +38,17 @@
                 placeholder="Select"
               >
                 <el-option
-                  v-for="item in languages"
-                  :key="item.language_id"
-                  :label="item.language_name"
-                  :value="item.language_id"
+                  v-for="item in shopData.languages"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
                 ></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Region" prop="region">
               <el-select v-model="shop.region" placeholder="Select" @change="changeRegion">
                 <el-option
-                  v-for="item in regions"
+                  v-for="item in shopData.regionList"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value"
@@ -62,10 +64,10 @@
                 placeholder="Select"
               >
                 <el-option
-                  v-for="item in currencies"
-                  :key="item.currency_id"
-                  :label="item.currency_name"
-                  :value="item.currency_id"
+                  v-for="item in shopData.currency"
+                  :key="item.value"
+                  :label="item.lang_name + ' ' + item.symbol"
+                  :value="item.value"
                 ></el-option>
               </el-select>
             </el-form-item>
@@ -82,6 +84,9 @@
 <script>
 import * as ALL from "../../api/eShopSetting/onlineShopSetting";
 
+import * as shopApi from "../../api/eShopSetting/onlineShopSetting";
+import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting"
+
 export default {
   name: "eShopSetting",
   data() {
@@ -94,78 +99,11 @@ export default {
     };
 
     return {
-        action: `https://jsonplaceholder.typicode.com/posts/`,
-        uploadData: {userId: 1304, pathName: 'company'},
-        languages: [
-            {
-                language_id: 501,
-                language_name: "Chinese Simplified",
-                language_code: "chinese_simplified",
-                language_symbol: "简体中文"
-            },
-            {
-                language_id: 502,
-                language_name: "Chinese Traditional",
-                language_code: "chinese_traditional",
-                language_symbol: "中國傳統的"
-            },
-            {
-                language_id: 503,
-                language_name: "English",
-                language_code: "english",
-                language_symbol: "English"
-            },
-            {
-                language_id: 504,
-                language_name: "Tamil",
-                language_code: "tamil",
-                language_symbol: "தமிழ்"
-            }
-        ],
-        regions: [
-            {
-                value: "(GMT +08:00) Asia/Hong_Kong",
-                label: "(GMT +08:00) Asia/Hong_Kong"
-            },
-            {
-                value: "(GMT +05:00) Asia/China",
-                label: "(GMT +05:00) Asia/China"
-            },
-            {
-                value: "(GMT +05:30) Asia/India",
-                label: "(GMT +05:30) Asia/India"
-            },
-            {
-                value: "(GMT +04:00) Asia/Nepal",
-                label: "(GMT +04:00) Asia/Nepal"
-            }
-        ],
-        currencies: [
-            {
-                currency_id: 501,
-                currency_name: "EUR",
-                currency_code: "eur",
-                currency_symbol: "€"
-            },
-            {
-                currency_id: 502,
-                currency_name: "USD",
-                currency_code: "usd",
-                currency_symbol: "$"
-            },
-            {
-                currency_id: 503,
-                currency_name: "YUAN",
-                currency_code: "yuan",
-                currency_symbol: "¥"
-            },
-            {
-                currency_id: 504,
-                currency_name: "INR",
-                currency_code: "inr",
-                currency_symbol: "₹"
-            }
-        ],
+        action: '',
+        uploadData: {user_id: this.user_id},
+        shopData: [],
+        logo: [],
+        DataShop: [],
         shopDetailrules: {
             shop_name: [
                 {
@@ -180,9 +118,9 @@ export default {
                     trigger: "blur"
                 }
             ],
-            shop_logo: [
-                {required: true, message: "Please upload logo", trigger: "change"},
-            ],
+            // shop_logo: [
+            //     {required: true, message: "Please upload logo", trigger: "change"},
+            // ],
             region: [
                 {required: true, message: "Please Time Region", trigger: "change"}
             ],
@@ -212,14 +150,41 @@ export default {
     }
   },
   mounted() {
-    this.getAllMasterData();
+    this.getData();
   },
+  // created() {
+  //   this.getData();
+  // },
   computed: {
-      shop() {
+      shop: {
+          get(){
               return this.$store.state.setting.shop
+          }
+      },
+      user_id: {
+          get() {
+              return this.$store.state.user.user.user_id
+          }
       }
   },
   methods: {
+    uploadLogo(file, fileList) {
+      console.log(file, 'fileeeeeeeeeeeeeeeeeeeeeeeee');
+      this.logo.push(file);
+      this.shop.shop_logo = this.logo;
+      console.log(this.shop.shop_logo, 'logooooooooooooooooooooooooooooooooo');
+    },
+    getData(){
+        shopApi.default.getShopData().then(response => {
+            if(response.code==0){
+                this.shopData = response.data;
+            }else{
+                this.$notify.error({title:'提示',message:response.msg});
+            }
+        }).catch(error => {
+            console.log(error)
+        })
+    },
     submitUpload() {
         console.log('this.$refs.upload',this.$refs.upload.submit);
         this.$refs.upload.submit();
@@ -237,10 +202,11 @@ export default {
     },
     update(obj){
         var data={
-            data:obj
+            data : {...obj, user_id : this.user_id}
         };
-        this.$store.dispatch("",data).then(response => {
+        updateShop.default.updateData().then(response => {
             if(response.code==0){
+                console.log('successssssssssssss', response.data);
                 this.$notify.success({title:"提示",message:response.msg});
             }else{
                 this.$notify.error({title:'提示',message:response.msg});
@@ -249,23 +215,36 @@ export default {
             console.log(error)
         })
     },
-    changeShopName(val) {
-      this.update({'shop_name':val})
-    },
-    changeCurrency(val){
-        this.update({'currency' : val})
-    },
-    changeRegion(val){
-        this.update({'region': val})
-    },
-    changeLanguage(val) {
-        this.update({'language': val})
-    },
+    // changeShopName(val) {
+    //   this.update({'shop_name':val})
+    // },
+    // changeCurrency(val){
+    //     this.update({'currency' : val})
+    // },
+    // changeRegion(val){
+    //     this.update({'region': val})
+    // },
+    // changeLanguage(val) {
+    //     this.update({'language': val})
+    // },
     submitToSave(formData) {
-        console.log(this.$refs[formData].validate);
+        var data={
+            data : {...this.shop, user_id : this.user_id}
+        };
+        console.log(data, 'jsgdsjhdgsajhdsjhdvsfhmsavafsmfvsmfhvsmhjfvh');
+      console.log(this.$refs[formData].validate);
       this.$refs[formData].validate(valid => {
         if (valid) {
-          alert("saved successfully!");
+            shopApi.default.postData(data).then(response => {
+                if(response.code==0){
+                    this.DataShop = response.data;
+                    this.$notify.success({title:"提示",message:response.msg});
+                }else{
+                    this.$notify.error({title:'提示',message:response.msg});
+                }
+            }).catch(error => {
+                console.log(error)
+            });
         } else {
           console.log("error in saving!!");
           return false;

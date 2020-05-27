@@ -1,9 +1,10 @@
 import request from '@/utils/request'
 export default {
-    getMasterData() {
-        return request({
-            url: '/shop/master',
-            method: 'get'
+    async getShopData(obj) {
+        return await request({
+            url: '/system/shop/getData',
+            method: 'post',
+            data: {}
         })
     },
 }

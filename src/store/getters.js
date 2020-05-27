@@ -10,6 +10,7 @@ const getters = {
   permission_routers: state => state.permission.routers,
   addRouters: state => state.permission.addRouters,
   errorLogs: state => state.errorLog.logs,
-  tableColumnInfo: state => state.common.tableColumnInfo
-}
+  tableColumnInfo: state => state.common.tableColumnInfo,
+  user_id: state => state.user.user_id
+};
 export default getters
