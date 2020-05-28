@@ -3,13 +3,11 @@
     <div class="sectionContainer">
       <el-tabs v-model="activeName" @tab-click="handleClick">
 
-        {{is_maintenance_mode}}
         <el-switch v-model="is_maintenance_mode" active-text inactive-text="Store Status"
                    true-label=1 false-label=0
                    @change="changeMode"></el-switch>
         <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display">
-            {{display.is_allow_quantity_box}}
             <el-checkbox
               v-model="display.is_allow_quantity_box"
               true-label=1 false-label=0
@@ -199,9 +197,7 @@ export default {
   },
   methods: {
     updateDisplay(obj) {
-        var data={
-            data : {...obj, user_id : this.user_id}
-        };
+        var data={...obj, user_id : this.user_id};
         updateShop.default.updateDisplayData(data).then(response => {
           if (response.code == 0) {
             this.$notify.success({ title: "提示", message: response.msg });
@@ -214,9 +210,7 @@ export default {
         });
     },
     updateSecurity(obj) {
-        var data={
-            data : {...obj, user_id : this.user_id}
-        };
+        var data= {...obj, user_id : this.user_id};
         updateShop.default.updateSecurityData(data).then(response => {
           if (response.code == 0) {
             this.$notify.success({ title: "提示", message: response.msg });
@@ -229,9 +223,7 @@ export default {
         });
     },
     updateNotification(obj) {
-        var data={
-            data : {...obj, user_id : this.user_id}
-        };
+        var data={...obj, user_id : this.user_id};
         updateShop.default.updateNotificationData(data).then(response => {
           if (response.code == 0) {
             this.$notify.success({ title: "提示", message: response.msg });
