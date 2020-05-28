@@ -1,34 +1,30 @@
 import api from '@/api/eShopSetting/onlineShopSetting'
-// import store from '../../index'
-// import getters from '../../getters'
-
-// console.log(getters.user_id().user_id, 'sssssssssssssssstttttttttttttoooooooooooorrrrrrrrrrrrreeeeeeeeeee');
 
 const setting = {
     namespaced: true,
     state: {
         shop: {
-            shop_name: '',
+            name: '',
             shop_logo: [],
             region: '',
-            language: [],
+            languages: [],
             currency: [],
         },
         stores: {
             display: {
-                is_allow_quantity_box: false,
-                is_allow_product_reviews: false,
-                is_auto_approve_reviews: false,
-                is_enable_wishlist: false,
-                is_enable_product_comparsion: false,
-                is_enable_product_thumbnail_image: false,
-                is_enable_product_price: false,
-                is_enable_product_brand: false,
-                is_enable_product_shipping_price: false,
-                is_enable_product_rating: false,
-                is_enable_expected_delivery_date: false,
-                is_enable_add_to_cart: false,
-                is_enable_product_sku: false,
+                is_allow_quantity_box: 0,
+                is_allow_product_reviews: 0,
+                is_auto_approve_reviews: 0,
+                is_enable_wishlist: 0,
+                is_enable_product_comparsion: 0,
+                is_enable_product_thumbnail_image: 0,
+                is_enable_product_price: 0,
+                is_enable_product_brand: 0,
+                is_enable_product_shipping_price: 0,
+                is_enable_product_rating: 0,
+                is_enable_expected_delivery_date: 0,
+                is_enable_add_to_cart: 0,
+                is_enable_product_sku: 0,
                 new_product_days: '',
                 best_seller_type: '',
 

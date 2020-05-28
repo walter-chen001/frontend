@@ -2,41 +2,31 @@
   <div>
     <el-row :gutter="0" type="flex" justify="center" class="centerSection">
       <div class="sectionContainer">
-          {{user_id}} --------
         <el-card class="box-card">
+          {{shopData.regionList}}
           <el-form :model="shop" ref="shop" :rules="shopDetailrules">
             <el-form-item label="E-Shop Name" prop="shop_name">
-              <el-input v-model="shop.shop_name" @change="changeShopName"></el-input>
+              <el-input v-model="shop.name"></el-input>
             </el-form-item>
-            {{logo}} -------- {{uploadData}}
-            <el-form-item label="E-Shop logo">
+            <el-form-item label="E-Shop logo" prop="logo">
               <el-upload
                 class="upload-demo"
                 ref="upload"
-                :on-remove="handleRemove"
+                action="/"
+                :on-remove="deleteAttachment"
                 :before-remove="beforeRemove"
-                @on-success="handleSuccess"
-                :http-request="uploadLogo"
-                :data="uploadData"
+                :on-change="addAttachment"
                 :file-List="logo"
                 :auto-upload="false"
-                multiple
-                :limit="1"
               >
-                <el-button native-type="button" size="large" @click="submitUpload">
+                <el-button native-type="button" size="large">
                   Upload
                   <i class="el-icon-upload2"></i>
                 </el-button>
               </el-upload>
             </el-form-item>
             <el-form-item label="Supported Languages" prop="language">
-              <el-select
-                v-model="shop.language"
-                multiple
-                @change="changeLanguage"
-                multiple-limit="3"
-                placeholder="Select"
-              >
+              <el-select v-model="shop.languages" multiple multiple-limit="3" placeholder="Select">
                 <el-option
                   v-for="item in shopData.languages"
                   :key="item.value"
@@ -45,8 +35,8 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Region" prop="region">
-              <el-select v-model="shop.region" placeholder="Select" @change="changeRegion">
+            <el-form-item label="Region Parent" prop="region_parent">
+              <el-select v-model="shop.region" placeholder="Select">
                 <el-option
                   v-for="item in shopData.regionList"
                   :key="item.value"
@@ -55,14 +45,28 @@
                 ></el-option>
               </el-select>
             </el-form-item>
+            <!--<el-form-item label="Region child" prop="region_child">-->
+            <!--<el-select v-model="shop.region.region_child" placeholder="Select">-->
+            <!--<el-option-->
+            <!--v-for="item in shopData.regionList"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value"-->
+            <!--&gt;</el-option>-->
+            <!--</el-select>-->
+            <!--</el-form-item>-->
+            <!--<el-form-item label="Region sub child" prop="region_sub_child">-->
+            <!--<el-select v-model="shop.region.region_sub_child" placeholder="Select">-->
+            <!--<el-option-->
+            <!--v-for="item in shopData.regionList"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value"-->
+            <!--&gt;</el-option>-->
+            <!--</el-select>-->
+            <!--</el-form-item>-->
             <el-form-item label="Billing Currency" prop="currency">
-              <el-select
-                v-model="shop.currency"
-                multiple
-                @change="changeCurrency"
-                multiple-limit="3"
-                placeholder="Select"
-              >
+              <el-select v-model="shop.currency" multiple multiple-limit="3" placeholder="Select">
                 <el-option
                   v-for="item in shopData.currency"
                   :key="item.value"
@@ -82,10 +86,8 @@
 </template>
 
 <script>
-import * as ALL from "../../api/eShopSetting/onlineShopSetting";
-
-import * as shopApi from "../../api/eShopSetting/onlineShopSetting";
-import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting"
+import { default as shopApi } from "../../api/eShopSetting/onlineShopSetting";
+import { default as updateShop } from "../../cgs_api/eShopSetting/onlineShopSetting";
 
 export default {
   name: "eShopSetting",
@@ -98,122 +100,127 @@ export default {
       }
     };
 
+    const uploadValidation = ({ field }, value, callback) => {
+      if (this.logo.length < 1) {
+        callback(new Error(`Please upload shop logo`));
+      } else {
+        callback();
+      }
+    };
+
     return {
-        action: '',
-        uploadData: {user_id: this.user_id},
-        shopData: [],
-        logo: [],
-        DataShop: [],
-        shopDetailrules: {
-            shop_name: [
-                {
-                    required: true,
-                    message: "Please input Shop name",
-                    trigger: "blur"
-                },
-                {
-                    min: 3,
-                    max: 50,
-                    message: "Length should be 3 to 50",
-                    trigger: "blur"
-                }
-            ],
-            // shop_logo: [
-            //     {required: true, message: "Please upload logo", trigger: "change"},
-            // ],
-            region: [
-                {required: true, message: "Please Time Region", trigger: "change"}
-            ],
-            language: [
-                {
-                    required: true,
-                    message: "Please select any 3 languages",
-                    trigger: "change"
-                },
-                {
-                    trigger: "blur",
-                    validator: selectAtleast3
-                }
-            ],
-            currency: [
-                {
-                    required: true,
-                    message: "Please select any 3 Currencies",
-                    trigger: "change"
-                },
-                {
-                    trigger: "blur",
-                    validator: selectAtleast3
-                }
-            ]
-        },
-    }
+      action: "",
+      uploadData: { user_id: this.user_id },
+      shopData: [],
+      logo: [],
+      DataShop: [],
+      shopDetailrules: {
+        shop_name: [
+          {
+            required: true,
+            message: "Please input Shop name",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 50,
+            message: "Length should be 3 to 50",
+            trigger: "blur"
+          }
+        ],
+        logo: [
+          // {
+          //   required: true,
+          //   message: "Please upload shop logo 1",
+          //   trigger: "change"
+          // },
+          { trigger: "blur", validator: uploadValidation }
+        ],
+        region: [
+          { required: true, message: "Please Time Region", trigger: "change" }
+        ],
+        language: [
+          {
+            required: true,
+            message: "Please select any 3 languages",
+            trigger: "change"
+          },
+          {
+            trigger: "change",
+            validator: selectAtleast3
+          }
+        ],
+        currency: [
+          {
+            required: true,
+            message: "Please select any 3 Currencies",
+            trigger: "change"
+          },
+          {
+            trigger: "blur",
+            validator: selectAtleast3
+          }
+        ]
+      }
+    };
   },
   mounted() {
     this.getData();
   },
-  // created() {
-  //   this.getData();
-  // },
   computed: {
-      shop: {
-          get(){
-              return this.$store.state.setting.shop
-          }
-      },
-      user_id: {
-          get() {
-              return this.$store.state.user.user.user_id
-          }
+    shop: {
+      get() {
+        return this.$store.state.setting.shop;
       }
+    },
+    user_id: {
+      get() {
+        return this.$store.state.user.user.user_id;
+      }
+    }
   },
   methods: {
-    uploadLogo(file, fileList) {
-      console.log(file, 'fileeeeeeeeeeeeeeeeeeeeeeeee');
-      this.logo.push(file);
-      this.shop.shop_logo = this.logo;
-      console.log(this.shop.shop_logo, 'logooooooooooooooooooooooooooooooooo');
-    },
-    getData(){
-        shopApi.default.getShopData().then(response => {
-            if(response.code==0){
-                this.shopData = response.data;
-            }else{
-                this.$notify.error({title:'提示',message:response.msg});
-            }
-        }).catch(error => {
-            console.log(error)
+    getData() {
+      shopApi
+        .getShopData()
+        .then(response => {
+          if (response.code == 0) {
+            this.shopData = response.data;
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
         })
-    },
-    submitUpload() {
-        console.log('this.$refs.upload',this.$refs.upload.submit);
-        this.$refs.upload.submit();
-    },
-    handleLogoChange(e, b, c) {
-      console.log(e, b, c);
-    },
-    handleSuccess (res, file, fileList) {
-        console.log('res', res, 'file', file, 'fileList', fileList);
-        this.shopData.shop_logo = 'shop_logo';
-        this.$refs.shopData.validateField('shop_logo')
+        .catch(error => {
+          console.log(error);
+        });
     },
     beforeRemove(file, fileList) {
-      return this.$confirm(`Cancel the transfer of ${file.name} ?`);
+      return this.$confirm(`Cancel the transfert of ${file.name} ?`);
     },
-    update(obj){
-        var data={
-            data : {...obj, user_id : this.user_id}
-        };
-        updateShop.default.updateData().then(response => {
-            if(response.code==0){
-                console.log('successssssssssssss', response.data);
-                this.$notify.success({title:"提示",message:response.msg});
-            }else{
-                this.$notify.error({title:'提示',message:response.msg});
-            }
-        }).catch(error => {
-            console.log(error)
+    addAttachment(file, fileList) {
+      this.logo.push(file);
+      this.shop.shop_logo = this.logo;
+    },
+
+    deleteAttachment() {
+      this.shop.shop_logo = [];
+    },
+    update(obj) {
+      var data = {
+        data: { ...obj, user_id: this.user_id }
+      };
+      updateShop
+        .updateData()
+        .then(response => {
+          if (response.code == 0) {
+            this.$notify.success({ title: "提示", message: response.msg });
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
         })
+        .catch(error => {
+          console.log(error);
+        });
     },
     // changeShopName(val) {
     //   this.update({'shop_name':val})
@@ -228,22 +235,23 @@ export default {
     //     this.update({'language': val})
     // },
     submitToSave(formData) {
-        var data={
-            data : {...this.shop, user_id : this.user_id}
-        };
-        console.log(data, 'jsgdsjhdgsajhdsjhdvsfhmsavafsmfvsmfhvsmhjfvh');
+      var data = { ...this.shop, user_id: this.user_id };
+      console.log(data, "jsgdsjhdgsajhdsjhdvsfhmsavafsmfvsmfhvsmhjfvh");
       console.log(this.$refs[formData].validate);
       this.$refs[formData].validate(valid => {
         if (valid) {
-            shopApi.default.postData(data).then(response => {
-                if(response.code==0){
-                    this.DataShop = response.data;
-                    this.$notify.success({title:"提示",message:response.msg});
-                }else{
-                    this.$notify.error({title:'提示',message:response.msg});
-                }
-            }).catch(error => {
-                console.log(error)
+          updateShop
+            .postData(data)
+            .then(response => {
+              if (response.code == 0) {
+                this.DataShop = response.data;
+                this.$notify.success({ title: "提示", message: response.msg });
+              } else {
+                this.$notify.error({ title: "提示", message: response.msg });
+              }
+            })
+            .catch(error => {
+              console.log(error);
             });
         } else {
           console.log("error in saving!!");

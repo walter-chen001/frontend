@@ -47,10 +47,10 @@ module.exports = {
                 }
             },
             '/cgs_api': {
-                target: 'http://54.188.203.178:3009',
+                target: 'http://54.188.203.178:3009/cgs_api',
                 changeOrigin: true,
                 pathRewrite: { '^/cgs_api': '' },
-                router:mockServer.router(host,port,serverHost)
+                // router:mockServer.router(host,port,serverHost)
             },
 
         }
