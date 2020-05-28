@@ -284,7 +284,7 @@ export default {
       this.updateDisplay({ is_enable_product_rating: val });
     },
     changeExpectedDelivery(val) {
-      this.uodate({ is_enable_expected_delivery_date: val });
+      this.updateDisplay({ is_enable_expected_delivery_date: val });
     },
     changeCart(val) {
       this.updateDisplay({ is_enable_add_to_cart: val });
