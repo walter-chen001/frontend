@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card centerSection">
     <el-form ref="form" :model="form">
-      <el-form-item label="Title">
+      <el-form-item label="Pages">
         <el-select v-model="value1">
           <el-option
             v-for="item in options"
@@ -11,7 +11,7 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="Pages">
+      <el-form-item label="Title">
         <el-input v-model="form.page"></el-input>
       </el-form-item>
       <el-form-item label="Description">
@@ -51,23 +51,23 @@ export default {
       options: [
         {
           value: "Option1",
-          label: "Option1"
+          label: "Home Page"
         },
         {
           value: "Option2",
-          label: "Option2"
+          label: "Tag 1"
         },
         {
           value: "Option3",
-          label: "Option3"
+          label: "Tag 2"
         },
         {
           value: "Option4",
-          label: "Option4"
+          label: "Tag 3"
         },
         {
           value: "Option5",
-          label: "Option5"
+          label: "Tag 4"
         }
       ],
       value1: [],

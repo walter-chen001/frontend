@@ -75,8 +75,8 @@
               true-label=1 false-label=0
               @change="changeProductSku"
             >Show Product SKU</el-checkbox>
-
-            <el-form-item label="New Product Parameter Set Up">
+            <p class="gray-header">New Product Parameter Set Up</p>
+            <el-form-item label="">
               <el-input
                 v-model="display.new_product_days"
                 @change="changeDays"
@@ -84,7 +84,7 @@
               ></el-input>
             </el-form-item>
 
-            <p>Best Seller Parameter Set Up</p>
+            <p class="gray-header">Best Seller Parameter Set Up</p>
 
             <el-form-item>
               <el-radio-group @change="changeBestSeller" v-model="display.best_seller_type">
@@ -337,6 +337,14 @@ export default {
 <style lang="scss">
 .pt-10 {
   padding-top: 10px;
+}
+.gray-header {
+  font-size: 14px;
+  font-weight: 700;
+  background: #eef1f6;
+  padding: 10px;
+  color: #666;
+  margin-bottom: 5px;
 }
 .sectionContainer {
   width: 100%;
