@@ -42,6 +42,16 @@ const setting = {
                 is_enable_cart_notification: false,
                 page_inventory_notification: '',
             }
+        },
+        domain: {
+           domain_name: '',
+           fav_icon: [],
+        },
+        seo: {
+            pages: [],
+            title: '',
+            description: '',
+            multi_tag: []
         }
     },
     mutations: {

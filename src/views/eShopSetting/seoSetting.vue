@@ -1,24 +1,27 @@
 <template>
   <el-card class="box-card centerSection">
     <el-form ref="form" :model="form">
-      <el-form-item label="Title">
-        <el-select v-model="value1">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="Pages">
-        <el-input v-model="form.page"></el-input>
+        <el-select v-model="seo.pages" @change="changePage">
+          <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+          ></el-option>
+        </el-select>
       </el-form-item>
+
+      <el-form-item label="Title">
+        <el-input v-model="seo.title" @change="changeTitle"></el-input>
+      </el-form-item>
+
       <el-form-item label="Description">
-        <el-input type="textarea" v-model="form.desc"></el-input>
+        <el-input type="textarea" v-model="seo.description" @change="changeDescrip"></el-input>
       </el-form-item>
+
       <el-form-item label="Multi tag">
-        <el-select v-model="value2" multiple>
+        <el-select v-model="seo.multi_tag" multiple @change="changeMulti">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -27,27 +30,19 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item class="text-right pt-10">
-        <el-button type="primary" @click="onSubmit">Save</el-button>
-      </el-form-item>
+
     </el-form>
   </el-card>
 </template>
 
 <script>
+
+import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting"
+
 export default {
   name: "seoSetting",
   data() {
     return {
-      form: {
-        page: "",
-        desc: ""
-      },
-      methods: {
-        onSubmit() {
-          console.log("submit!");
-        }
-      },
       options: [
         {
           value: "Option1",
@@ -70,10 +65,48 @@ export default {
           label: "Option5"
         }
       ],
-      value1: [],
-      value2: []
     };
-  }
+  },
+  computed: {
+    seo: {
+        get() {
+            return this.$store.state.setting.seo;
+        },
+    },
+    user: {
+        get(){
+            return this.$store.state.user.user.user_id;
+        }
+    }
+  },
+  methods: {
+      updateSeo(obj) {
+          console.log("submit!");
+          var data = {...obj, user_id: this.user_id};
+          updateShop.default.updateSeoData(data).then(response => {
+              if (response.code == 0) {
+                  this.$notify.success({ title: "提示", message: response.msg });
+              } else {
+                  this.$notify.error({ title: "提示", message: response.msg });
+              }
+          })
+          .catch(error => {
+              console.log(error);
+          });
+      },
+      changePage(val) {
+          this.updateSeo({'pages': val})
+      },
+      changeTitle(val) {
+          this.updateSeo({'title': val})
+      },
+      changeDescrip(val) {
+          this.updateSeo({'description': val})
+      },
+      changeMulti(val) {
+          this.updateSeo({'multi_tag': val})
+      }
+  },
 };
 </script>
 

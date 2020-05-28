@@ -46,5 +46,21 @@ export default {
             method: 'post',
             data: obj,
         })
-    }
+    },
+
+    async updateDomainData(obj) {
+        return await requestCgs({
+            url:'',
+            method: 'post',
+            data: obj,
+        })
+    },
+
+    async updateSeoData(obj) {
+        return await requestCgs({
+            url:'',
+            method: 'post',
+            data: obj,
+        })
+    },
 }
