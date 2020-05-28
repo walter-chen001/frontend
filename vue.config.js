@@ -1,6 +1,6 @@
 const mockServer = require('./mockServer.js');
-const host ="168.168.2.105";
-const port ="8099";
+const host = "168.168.2.105";
+const port = "8099";
 const serverHost = "http://apidoc.ebixdev.cn:3000/mock/14";
 const Timestamp = new Date().getTime();  //当前时间为了防止打包缓存不刷新，所以给每个js文件都加一个时间戳
 // const serverHost = "http://168.168.2.17:3000/mock/15"
@@ -37,7 +37,7 @@ module.exports = {
                 // ws: true,
                 changeOrigin: true,
                 pathRewrite: { '^/api': '' },
-                router:mockServer.router(host,port,serverHost)
+                router: mockServer.router(host, port, serverHost)
             },
             '/img': {
                 target: 'https://ebixsystemv3img.ebixsys.com',
@@ -47,7 +47,7 @@ module.exports = {
                 }
             },
             '/cgs_api': {
-                target: 'http://54.188.203.178:3009/cgs_api',
+                target: 'http://54.188.203.178:3009',
                 changeOrigin: true,
                 pathRewrite: { '^/cgs_api': '' },
                 // router:mockServer.router(host,port,serverHost)

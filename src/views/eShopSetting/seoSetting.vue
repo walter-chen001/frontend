@@ -46,23 +46,23 @@ export default {
       options: [
         {
           value: "Option1",
-          label: "Option1"
+          label: "Home Page"
         },
         {
           value: "Option2",
-          label: "Option2"
+          label: "Tag 1"
         },
         {
           value: "Option3",
-          label: "Option3"
+          label: "Tag 2"
         },
         {
           value: "Option4",
-          label: "Option4"
+          label: "Tag 3"
         },
         {
           value: "Option5",
-          label: "Option5"
+          label: "Tag 4"
         }
       ],
     };
