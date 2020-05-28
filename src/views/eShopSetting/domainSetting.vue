@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card centerSection">
     <el-form ref="domain" :model="domain" :rules="domainRules">
-        <el-form-item label="Name">
+        <el-form-item>
             <el-radio-group @change="changeBestSeller" v-model="domain.domain">
                 <el-radio label="main_domain">Main Domain</el-radio>
                 <el-radio label="sub_domain">Sub Domain</el-radio>
@@ -116,6 +116,13 @@ export default {
     display: block !important;
   }
 }
+
+.el-radio-group {
+    display: flex !important;
+}
+
+
+
 .text-right {
   text-align: right;
 }
