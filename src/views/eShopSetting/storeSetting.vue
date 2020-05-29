@@ -5,74 +5,74 @@
         <el-switch v-model="status" active-text inactive-text="Store Status"
                    @change="changeMode"></el-switch>
         <el-tab-pane label="Display" name="display">
-          <el-form ref="display" :model="display">
-            <el-checkbox
+          <el-form ref="display" :model="display" :rules="display">
+            <el-switch
               v-model="display.is_allow_quantity_box"
-              true-label=1 false-label=0
+              active-text inactive-text="Quantity Box"
               @change="changeQuantity"
-            >Quantity Box</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_allow_product_reviews"
-              true-label=1 false-label=0
+              active-text inactive-text="Allow Product Reviews"
               @change="changeProductReview"
-            >Allow Product Reviews</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_auto_approve_reviews"
-              true-label=1 false-label=0
+              active-text inactive-text="Auto Approve Reviews"
               @change="changeAutoApproveReview"
-            >Auto Approve Reviews</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_wishlist"
-              true-label=1 false-label=0
+              active-text inactive-text="Enable Wishlist"
               @change="changeWishlist"
-            >Enable Wishlist</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_comparsion"
-              true-label=1 false-label=0
+              active-text inactive-text="Enable Product Comparison"
               @change="changeProductComparison"
-            >Enable Product Comparison</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_thumbnail_image"
-              true-label=1 false-label=0
+              active-text inactive-text="Enable Product Thumbnail Images"
               @change="changeProductThumbnail"
-            >Enable Product Thumbnail Images</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_price"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Product Price"
               @change="changeProductPrice"
-            >Show Product Price</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_brand"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Product Brand"
               @change="changeProductBrand"
-            >Show Product Brand</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_shipping_price"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Product Shipping Cost"
               @change="changeShippingCost"
-            >Show Product Shipping Cost</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_rating"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Product Rating"
               @change="changeProductRating"
-            >Show Product Rating</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_expected_delivery_date"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Expected Delivery Date"
               @change="changeExpectedDelivery"
-            >Show Expected Delivery Date</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_add_to_cart"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Add to Cart Option"
               @change="changeCart"
-            >Show "Add to Cart" Option</el-checkbox>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="display.is_enable_product_sku"
-              true-label=1 false-label=0
+              active-text inactive-text="Show Product SKU"
               @change="changeProductSku"
-            >Show Product SKU</el-checkbox>
+            >Show Product SKU</el-switch>
 
-            <el-form-item label="New Product Parameter Set Up">
+            <el-form-item label="New Product Parameter Set Up" prop="new_product_days">
               <el-input
                 v-model="display.new_product_days"
                 @change="changeDays"
@@ -95,54 +95,43 @@
 
         <el-tab-pane label="Security &amp; Privacy " name="securityPrivacy">
           <el-form ref="security" :model="security">
-            <p>Complex Password</p>
-            <el-checkbox
+            <el-switch
               v-model="security.is_enable_complex_password"
-              true-label=1 false-label=0
+              active-text inactive-text="Complex Password"
               @change="changeComplexPwd"
-            >Enforce complexity rule for shoppers password.</el-checkbox>
-            <p>Cookie Consent Tracking</p>
-            <el-checkbox
+            ></el-switch>
+            <el-switch
               v-model="security.is_enable_cookie_tracking"
-              true-label=1 false-label=0
+              active-text inactive-text="Cookie Consent Tracking"
               @change="changeCookieTracking"
-            >Yes, turn on cookie consent banner in my site.</el-checkbox>
-            <p>Analytics for my business</p>
-            <el-checkbox v-model="security.is_enable_analytics"
-                         true-label=1 false-label=0 @change="changeAnalytics">
-              Track customer on screen behaviour (
-              <a href="https://clicky.com/">https://clicky.com/</a>)
-            </el-checkbox>
+            ></el-switch>
+            <el-switch v-model="security.is_enable_analytics"
+                       active-text inactive-text="Analytics for my business"
+                       @change="changeAnalytics">
+            </el-switch>
           </el-form>
         </el-tab-pane>
 
         <el-tab-pane label="Notification Settings" name="notificationSettings">
           <el-form ref="notification" :model="notification">
-            <p>Product Review Notification</p>
-            <el-checkbox
+            <el-switch
               v-model="notification.is_product_review_notification"
-              true-label=1 false-label=0
-              @change="changeReviewNotification"
-            >Send message / emails to customers asking to review the purchased products.</el-checkbox>
-            <p>Forward Order Invoice</p>
-            <el-checkbox
+              active-text inactive-text="Product Review Notification"
+              @change="changeReviewNotification"></el-switch>
+            <el-switch
               v-model="notification.is_forward_order_invoice"
-              true-label=1 false-label=0
+              active-text inactive-text="Forward Order Invoice"
               @change="changeForwardOrder"
-            >Send message / emails of their order invoices</el-checkbox>
-            <p>Forward Shipping Status</p>
-            <el-checkbox
+            >Send message / emails of their order invoices</el-switch>
+            <el-switch
               v-model="notification.is_forward_shipping_status"
-              true-label=1 false-label=0
-              @change="changeForwardShipping"
-            >Send message / email whenever there is a change in the shipping status of the product.</el-checkbox>
-            <p class="checkboxHeading">
-              <el-checkbox
+              active-text inactive-text="Forward Shipping Status"
+              @change="changeForwardShipping"></el-switch>
+              <el-switch
                 v-model="notification.is_enable_cart_notification"
-                true-label=1 false-label=0
+                active-text inactive-text="Abandoned Card Notification"
                 @change="changeCartNotification"
-              >Abandoned Card Notification</el-checkbox>
-            </p>
+              ></el-switch>
 
             <p>Product Page Inventory Level Notification</p>
             <el-form-item>
@@ -179,7 +168,14 @@ export default {
   data() {
     return {
       status: this.status,
-      activeName: "display"
+      activeName: "display",
+      display : {
+          new_product_days: [
+          {
+              trigger: "input",
+              type: "number",
+          }]
+      }
     };
   },
   mounted() {
@@ -343,7 +339,7 @@ export default {
       this.updateDisplay({ new_product_days: val });
     },
     changeBestSeller(val) {
-      this.updateDisplay({ best_seller_type: val });  
+      this.updateDisplay({ best_seller_product: val });
     },
     changeComplexPwd(val) {
       this.updateSecurity({ is_enable_complex_password: val });
