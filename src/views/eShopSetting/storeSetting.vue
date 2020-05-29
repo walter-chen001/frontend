@@ -6,7 +6,7 @@
                    @change="changeMode"></el-switch>
         <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display" :rules="display">
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_allow_quantity_box"
               active-text inactive-text="Quantity Box"
               @change="changeQuantity"
@@ -16,57 +16,57 @@
               active-text inactive-text="Allow Product Reviews"
               @change="changeProductReview"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_auto_approve_reviews"
               active-text inactive-text="Auto Approve Reviews"
               @change="changeAutoApproveReview"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_wishlist"
               active-text inactive-text="Enable Wishlist"
               @change="changeWishlist"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_comparsion"
               active-text inactive-text="Enable Product Comparison"
               @change="changeProductComparison"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_thumbnail_image"
               active-text inactive-text="Enable Product Thumbnail Images"
               @change="changeProductThumbnail"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_price"
               active-text inactive-text="Show Product Price"
               @change="changeProductPrice"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_brand"
               active-text inactive-text="Show Product Brand"
               @change="changeProductBrand"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_shipping_price"
               active-text inactive-text="Show Product Shipping Cost"
               @change="changeShippingCost"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_rating"
               active-text inactive-text="Show Product Rating"
               @change="changeProductRating"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_expected_delivery_date"
               active-text inactive-text="Show Expected Delivery Date"
               @change="changeExpectedDelivery"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_add_to_cart"
               active-text inactive-text="Show Add to Cart Option"
               @change="changeCart"
             ></el-switch>
-            <el-switch
+            <el-switch style="display: block"
               v-model="display.is_enable_product_sku"
               active-text inactive-text="Show Product SKU"
               @change="changeProductSku"
@@ -416,4 +416,8 @@ export default {
   font-weight: 700;
   margin-bottom: 5px;
 }
+.el-switch {
+  display: block;
+}
+
 </style>

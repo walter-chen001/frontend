@@ -49,13 +49,6 @@ import { getCompanyId } from "@/utils/auth";
 export default {
   name: "shopSetting",
   data() {
-    const selectAtleast3 = ({ field }, value, callback) => {
-      if (value.length <= 2) {
-        callback(new Error(`Please select atleast 3 ${field}`));
-      } else {
-        callback();
-      }
-    };
 
     return {
       langData: [],
@@ -81,24 +74,16 @@ export default {
         languages: [
           {
             required: true,
-            message: "Please select any 3 Currencies",
+            message: "Please select atleast 1 Language",
             trigger: "change"
           },
-          {
-            trigger: "change",
-            validator: selectAtleast3
-          }
         ],
         currency: [
           {
             required: true,
-            message: "Please select any 3 Currencies",
+            message: "Please select atleast 1 Currency",
             trigger: "change"
           },
-          {
-            trigger: "change",
-            validator: selectAtleast3
-          }
         ]
       }
     };
