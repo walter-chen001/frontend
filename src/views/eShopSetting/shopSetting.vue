@@ -44,12 +44,12 @@
 <script>
 import { default as shopApi } from "../../api/eShopSetting/onlineShopSetting";
 import { default as csgShopApi } from "../../cgs_api/eShopSetting/onlineShopSetting";
+import { getCompanyId } from "@/utils/auth";
 
 export default {
   name: "shopSetting",
   data() {
     const selectAtleast3 = ({ field }, value, callback) => {
-        console.log(value.length, 'langggggggggg');
       if (value.length <= 2) {
         callback(new Error(`Please select atleast 3 ${field}`));
       } else {
@@ -79,15 +79,15 @@ export default {
           { required: true, message: "Please select Region", trigger: "change" }
         ],
         languages: [
-            {
-                required: true,
-                message: "Please select any 3 Currencies",
-                trigger: "change"
-            },
-            {
-                trigger: "change",
-                validator: selectAtleast3
-            }
+          {
+            required: true,
+            message: "Please select any 3 Currencies",
+            trigger: "change"
+          },
+          {
+            trigger: "change",
+            validator: selectAtleast3
+          }
         ],
         currency: [
           {
@@ -138,33 +138,33 @@ export default {
     },
 
     getCurrencyData() {
-        shopApi
-            .getCurrencyList()
-            .then(response => {
-                if (response.code == 0) {
-                    this.currencyData = response.data;
-                } else {
-                    this.$notify.error({ title: "提示", message: response.msg });
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+      shopApi
+        .getCurrencyList()
+        .then(response => {
+          if (response.code == 0) {
+            this.currencyData = response.data;
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
 
     getRegionData() {
-        shopApi
-            .getRegionList()
-            .then(response => {
-                if (response.code == 0) {
-                    this.regionData = response.data;
-                } else {
-                    this.$notify.error({ title: "提示", message: response.msg });
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            });
+      shopApi
+        .getRegionList()
+        .then(response => {
+          if (response.code == 0) {
+            this.regionData = response.data;
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     getStoredData() {
       const dataToSend = {
@@ -177,18 +177,25 @@ export default {
           this.shop.name = data.name;
           this.shop.languages = data.languages;
           this.shop.region = data.region;
-          this.shop.currency= data.currency;
-          console.log('shop name', this.shop.name)
+          this.shop.currency = data.currency;
+          console.log("shop name", this.shop.name);
           // this.shop.
           // this.shop.
         })
         .catch(e => console.log(e));
     },
 
-
     submitToSave(formData) {
-      console.log(this.$refs.upl);
-      var data = { ...this.shop, user_id: this.user_id };
+      var data = {
+        ...this.shop,
+        region: this.shop.region.map(data => data),
+        languages: this.shop.languages.map(data => data),
+        currency: this.shop.currency.map(data => data),
+        user_id: this.user_id,
+        company_id: getCompanyId()
+      };
+      delete data.shop_logo;
+      console.log(data);
       this.$refs[formData].validate(valid => {
         if (valid) {
           csgShopApi
