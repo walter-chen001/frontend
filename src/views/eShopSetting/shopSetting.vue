@@ -174,10 +174,10 @@ export default {
         .getShopData(dataToSend)
         .then(({ data }) => {
           console.log(data);
-          this.shop.name = data.name;
-          this.shop.languages = data.languages;
-          this.shop.region = data.region;
-          this.shop.currency = data.currency;
+          this.shop.name = data.name || "";
+          this.shop.languages = data.languages || [];
+          this.shop.region = data.region || [];
+          this.shop.currency = data.currency || [];
           console.log("shop name", this.shop.name);
           // this.shop.
           // this.shop.
