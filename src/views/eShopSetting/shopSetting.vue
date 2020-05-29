@@ -17,7 +17,7 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Region Parent" prop="region">
+            <el-form-item label="Region" prop="region">
               <el-cascader v-model="shop.region" :options="regionData"></el-cascader>
             </el-form-item>
 
@@ -188,14 +188,16 @@ export default {
     submitToSave(formData) {
       var data = {
         ...this.shop,
-        region: this.shop.region.map(data => data),
-        languages: this.shop.languages.map(data => data),
-        currency: this.shop.currency.map(data => data),
+        region: JSON.stringify(this.shop.region.map(data => data)),
+        languages: JSON.stringify(this.shop.languages.map(data => data)),
+        currency: JSON.stringify(this.shop.currency.map(data => data)),
         user_id: this.user_id,
         company_id: getCompanyId()
       };
-      delete data.shop_logo;
       console.log(data);
+
+      delete data.shop_logo;
+
       this.$refs[formData].validate(valid => {
         if (valid) {
           csgShopApi

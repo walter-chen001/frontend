@@ -343,7 +343,7 @@ export default {
       this.updateDisplay({ new_product_days: val });
     },
     changeBestSeller(val) {
-      this.updateDisplay({ best_seller_product: val });
+      this.updateDisplay({ best_seller_type: val });  
     },
     changeComplexPwd(val) {
       this.updateSecurity({ is_enable_complex_password: val });
