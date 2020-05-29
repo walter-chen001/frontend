@@ -44,10 +44,8 @@ const setting = {
             }
         },
         domain: {
-           domain: '',
-           main_domain_name: '',
-           sub_domain_name: '',
-           fav_icon: [],
+           domain_type: 1,
+           domain_name: '',
         },
         seo: {
             pages: [],

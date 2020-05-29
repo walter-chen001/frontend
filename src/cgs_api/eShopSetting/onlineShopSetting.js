@@ -50,7 +50,7 @@ export default {
 
     async updateDomainData(obj) {
         return await requestCgs({
-            url:'',
+            url:'/cgs_api/shop/update/domain',
             method: 'post',
             data: obj,
         })

@@ -2,22 +2,22 @@
   <el-card class="box-card centerSection">
     <el-form ref="domain" :model="domain" :rules="domainRules">
         <el-form-item>
-            <el-radio-group @change="changeBestSeller" v-model="domain.domain">
-                <el-radio label="main_domain">Main Domain</el-radio>
-                <el-radio label="sub_domain">Sub Domain</el-radio>
+            <el-radio-group v-model="domain.domain_type">
+                <el-radio :label="1">Main Domain</el-radio>
+                <el-radio :label="0">Sub Domain</el-radio>
             </el-radio-group>
         </el-form-item>
 
-        <el-form-item v-if="domain.domain === 'main_domain'">
+        <el-form-item v-if="domain.domain_type === 1">
             <p>The process will be redirect to the Shop-Owners domain to our sub-domain: 1.Login to provider backend: 2.Redirect the domain to our IP (A record) 123,123,123,123 3.After connected our server, we have individual to verify if this domain is our shop owner domain. www.frankie.com & frankie.com-> A record "xxx.xxx.xxx.xxxx</p>
         </el-form-item>
 
-        <!--<el-form-item v-if="domain.domain === 'main_domain'" label="Main Domain Name" prop="main_domain_name">-->
-            <!--<el-input v-model="domain.main_domain_name" @change="changeName"></el-input>-->
-        <!--</el-form-item>-->
+        <el-form-item v-if="domain.domain_type === 1" label="Main Domain Name" prop="main_domain_name">
+            <el-input v-model="domain.domain_name" @change="changeName(domain)"></el-input>
+        </el-form-item>
 
-        <el-form-item v-if="domain.domain === 'sub_domain'" label="Sub Domain Name" prop="sub_domain_name">
-            <el-input v-model="domain.sub_domain_name" @change="changeName"></el-input>
+        <el-form-item v-if="domain.domain_type === 0" label="Sub Domain Name" prop="sub_domain_name">
+            <el-input v-model="domain.domain_name" @change="changeName(domain)"></el-input>
         </el-form-item>
 
     </el-form>
@@ -32,11 +32,7 @@ export default {
   data() {
 
     const mainValidation = ({field}, value, callback) => {
-        // /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/
-        console.log(this.domain.main_domain_name, 'mainnnnnn');
-        // /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/
-        // /^[a-z0-9]+([-.][a-z0-9]+)*\.[a-z]{2,}$/i
-        if (/(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/.test(this.domain.main_domain_name)) {
+        if (/(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/.test(this.domain.domain_name)) {
             callback();
         } else {
             callback(new Error(`Please Enter Valid Main Domain Name`));
@@ -44,9 +40,7 @@ export default {
     };
 
     const subValidation = ({field}, value, callback) => {
-          // /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/
-          console.log(this.domain.sub_domain_name, 'Subbbbbbbbb');
-          if (/[^a-zA-Z0-9\-]/.test(this.domain.sub_domain_name)) {
+          if (/[^a-zA-Z0-9\-]/.test(this.domain.domain_name)) {
               callback(new Error(`Please Enter Valid Sub Domain Name`));
           } else {
               callback();
@@ -77,21 +71,30 @@ export default {
     }
   },
   methods: {
-    // changeName(val) {
-    //     this.updateDomain({'domain_name': val})
+    changeName(val) {
+        console.log(val.domain_name, 'domain....', val.domain_type);
+        this.updateDomain({'domain_name': val.domain_name, 'domain_type': val.domain_type})
+    },
+    // changeDomainType(val){
+    //     console.log(val, 'vallllllllll');
+    //     this.updateDomain({'domain_type': val})
     // },
     updateDomain(obj) {
         var data= {...obj, user_id : this.user_id};
-        updateShop.default.updateDomainData(data).then(response => {
-            if (response.code == 0) {
-                this.$notify.success({ title: "提示", message: response.msg });
-            } else {
-                this.$notify.error({ title: "提示", message: response.msg });
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        });
+        // this.$refs[obj].validate(valid => {
+        //     if (valid) {
+                updateShop.default.updateDomainData(data).then(response => {
+                    if (response.code == 0) {
+                        this.$notify.success({title: "提示", message: response.msg});
+                    } else {
+                        this.$notify.error({title: "提示", message: response.msg});
+                    }
+                })
+                    .catch(error => {
+                        console.log(error);
+                    });
+        //     }
+        // })
     },
   }
 };
