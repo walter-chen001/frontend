@@ -49,14 +49,6 @@ import { getCompanyId } from "@/utils/auth";
 export default {
   name: "shopSetting",
   data() {
-    const validateMin = ({ field }, value, callback) => {
-      if (value.length === 0) {
-        callback(new Error(`Please select atleast 1 ${field}`));
-      } else {
-        callback();
-      }
-    };
-
     return {
       langData: [],
       currencyData: [],
@@ -83,10 +75,6 @@ export default {
             required: true,
             message: "Please select atleast 1 Language",
             trigger: "change"
-          },
-          {
-            trigger: "change",
-            validator: validateMin
           }
         ],
         currency: [
@@ -94,10 +82,6 @@ export default {
             required: true,
             message: "Please select atleast 1 Currency",
             trigger: "change"
-          },
-          {
-            trigger: "change",
-            validator: validateMin
           }
         ]
       }

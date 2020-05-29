@@ -362,7 +362,6 @@ export default {
       this.changeStatusMode({ status: val });
     },
     changeDisplayStatus(val, name) {
-      console.log(val, name);
       this.updateDisplay({ [name]: val });
     },
 
@@ -422,5 +421,8 @@ export default {
   color: #666;
   font-weight: 700;
   margin-bottom: 5px;
+}
+.el-switch {
+  display: block;
 }
 </style>
