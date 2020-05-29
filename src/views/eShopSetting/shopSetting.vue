@@ -4,10 +4,16 @@
       <div class="sectionContainer">
         <el-card class="box-card">
           <el-form :model="shop" ref="shop" :rules="shopDetailrules">
-            <el-form-item label="E-Shop Name" prop="shop_name">
+            <el-form-item label="E-Shop Name" prop="name">
               <el-input v-model="shop.name"></el-input>
             </el-form-item>
-            <el-form-item label="E-Shop logo" prop="logo" required ref="upl" :onFieldChange="myChange()">
+            <el-form-item
+              label="E-Shop logo"
+              prop="logo"
+              required
+              ref="upl"
+              :onFieldChange="myChange()"
+            >
               <el-upload
                 class="upload-demo"
                 ref="upload"
@@ -34,7 +40,13 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="Region Parent" prop="region_parent">
+
+            <el-form-item label="Region Parent" prop="region">
+              <!-- <span class="demonstration">Child options expand when clicked (default)</span> -->
+              <el-cascader v-model="shop.region" :options="shopData.regionList"></el-cascader>
+            </el-form-item>
+
+            <!-- <el-form-item label="Region Parent" prop="region_parent">
               <el-select v-model="shop.region" placeholder="Select">
                 <el-option
                   v-for="item in shopData.regionList"
@@ -43,27 +55,8 @@
                   :value="item.value"
                 ></el-option>
               </el-select>
-            </el-form-item>
-            <!--<el-form-item label="Region child" prop="region_child">-->
-            <!--<el-select v-model="shop.region.region_child" placeholder="Select">-->
-            <!--<el-option-->
-            <!--v-for="item in shopData.regionList"-->
-            <!--:key="item.value"-->
-            <!--:label="item.label"-->
-            <!--:value="item.value"-->
-            <!--&gt;</el-option>-->
-            <!--</el-select>-->
-            <!--</el-form-item>-->
-            <!--<el-form-item label="Region sub child" prop="region_sub_child">-->
-            <!--<el-select v-model="shop.region.region_sub_child" placeholder="Select">-->
-            <!--<el-option-->
-            <!--v-for="item in shopData.regionList"-->
-            <!--:key="item.value"-->
-            <!--:label="item.label"-->
-            <!--:value="item.value"-->
-            <!--&gt;</el-option>-->
-            <!--</el-select>-->
-            <!--</el-form-item>-->
+            </el-form-item>-->
+
             <el-form-item label="Billing Currency" prop="currency">
               <el-select v-model="shop.currency" multiple multiple-limit="3" placeholder="Select">
                 <el-option
@@ -86,7 +79,7 @@
 
 <script>
 import { default as shopApi } from "../../api/eShopSetting/onlineShopSetting";
-import { default as updateShop } from "../../cgs_api/eShopSetting/onlineShopSetting";
+import { default as csgShopApi } from "../../cgs_api/eShopSetting/onlineShopSetting";
 
 export default {
   name: "eShopSetting",
@@ -114,7 +107,7 @@ export default {
       logo: [],
       DataShop: [],
       shopDetailrules: {
-        shop_name: [
+        name: [
           {
             required: true,
             message: "Please input Shop name",
@@ -165,6 +158,7 @@ export default {
   },
   mounted() {
     this.getData();
+    this.getStoreData();
   },
   computed: {
     shop: {
@@ -180,10 +174,10 @@ export default {
   },
   methods: {
     myChange() {
-        console.log('Changed');
-        if (this.logo.length !== 0) {
-            this.$refs.upl.resetField();
-        }
+      console.log("Changed");
+      if (this.logo.length !== 0) {
+        this.$refs.upl.resetField();
+      }
     },
     getData() {
       shopApi
@@ -199,11 +193,24 @@ export default {
           console.log(error);
         });
     },
+    getStoreData() {
+      const dataToSend = {
+        user_id: this.user_id
+      };
+      csgShopApi
+        .getShopData(dataToSend)
+        .then(({ data }) => {
+          console.log(data);
+          this.shop.name = data.name;
+          // this.shop.
+          // this.shop.
+        })
+        .catch(e => console.log(e));
+    },
     beforeRemove(file, fileList) {
-      return this.$confirm(`Cancel the transfert of ${file.name} ?`);
+      return this.$confirm(`Cancel the transfer of ${file.name} ?`);
     },
     addAttachment(file, fileList) {
-        console.log(file);
       this.logo.push(file);
       this.shop.shop_logo = this.logo;
     },
@@ -211,41 +218,13 @@ export default {
     deleteAttachment() {
       this.shop.shop_logo = [];
     },
-    update(obj) {
-      var data = {
-        data: { ...obj, user_id: this.user_id }
-      };
-      updateShop
-        .updateData()
-        .then(response => {
-          if (response.code == 0) {
-            this.$notify.success({ title: "提示", message: response.msg });
-          } else {
-            this.$notify.error({ title: "提示", message: response.msg });
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    // changeShopName(val) {
-    //   this.update({'shop_name':val})
-    // },
-    // changeCurrency(val){
-    //     this.update({'currency' : val})
-    // },
-    // changeRegion(val){
-    //     this.update({'region': val})
-    // },
-    // changeLanguage(val) {
-    //     this.update({'language': val})
-    // },
+
     submitToSave(formData) {
-        console.log(this.$refs.upl);
+      console.log(this.$refs.upl);
       var data = { ...this.shop, user_id: this.user_id };
       this.$refs[formData].validate(valid => {
         if (valid) {
-          updateShop
+          csgShopApi
             .postData(data)
             .then(response => {
               if (response.code == 0) {

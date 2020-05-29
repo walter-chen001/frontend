@@ -1,5 +1,12 @@
 import requestCgs from '@/utils/requestCgs'
 export default {
+    async getShopData(obj) {
+        return await requestCgs({
+            url: '/cgs_api/shop/getData',
+            method: 'post',
+            data: obj
+        })
+    },
     async updateShopData(obj) {
         return await requestCgs({
             url: '/cgs_api/shop/update',
@@ -18,7 +25,7 @@ export default {
 
     async updateDisplayData(obj) {
         return await requestCgs({
-            url:'/shop/update/display',
+            url: '/shop/update/display',
             method: 'post',
             data: obj,
         })
@@ -26,7 +33,7 @@ export default {
 
     async updateSecurityData(obj) {
         return await requestCgs({
-            url:'/shop/update/security',
+            url: '/shop/update/security',
             method: 'post',
             data: obj,
         })
@@ -34,7 +41,7 @@ export default {
 
     async updateNotificationData(obj) {
         return await requestCgs({
-            url:'/shop/update/notification',
+            url: '/shop/update/notification',
             method: 'post',
             data: obj,
         })
@@ -42,7 +49,7 @@ export default {
 
     async updateMaintenanceMode(obj) {
         return await requestCgs({
-            url:'/shop/update/maintenance',
+            url: '/shop/update/maintenance',
             method: 'post',
             data: obj,
         })
