@@ -4,98 +4,115 @@
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-switch v-model="status" active-text inactive-text="Store Status" @change="changeMode"></el-switch>
         <el-tab-pane label="Display" name="display">
-          <el-form ref="display" :model="display" :rules="display">
-            <el-switch
-              v-model="display.is_allow_quantity_box"
-              active-text
-              inactive-text="Quantity Box"
-              @change="changeQuantity"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_allow_product_reviews"
-              active-text
-              inactive-text="Allow Product Reviews"
-              @change="changeProductReview"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_auto_approve_reviews"
-              active-text
-              inactive-text="Auto Approve Reviews"
-              @change="changeAutoApproveReview"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_wishlist"
-              active-text
-              inactive-text="Enable Wishlist"
-              @change="changeWishlist"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_comparsion"
-              active-text
-              inactive-text="Enable Product Comparison"
-              @change="changeProductComparison"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_thumbnail_image"
-              active-text
-              inactive-text="Enable Product Thumbnail Images"
-              @change="changeProductThumbnail"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_price"
-              active-text
-              inactive-text="Show Product Price"
-              @change="changeProductPrice"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_brand"
-              active-text
-              inactive-text="Show Product Brand"
-              @change="changeProductBrand"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_shipping_price"
-              active-text
-              inactive-text="Show Product Shipping Cost"
-              @change="changeShippingCost"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_rating"
-              active-text
-              inactive-text="Show Product Rating"
-              @change="changeProductRating"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_expected_delivery_date"
-              active-text
-              inactive-text="Show Expected Delivery Date"
-              @change="changeExpectedDelivery"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_add_to_cart"
-              active-text
-              inactive-text="Show Add to Cart Option"
-              @change="changeCart"
-            ></el-switch>
-            <el-switch
-              v-model="display.is_enable_product_sku"
-              active-text
-              inactive-text="Show Product SKU"
-              @change="changeProductSku"
-            >Show Product SKU</el-switch>
-
-            <el-form-item label="New Product Parameter Set Up" prop="new_product_days">
-              <el-input
-                v-model="display.new_product_days"
-                @change="changeDays"
-                placeholder="Enter the no. of day"
-              ></el-input>
-            </el-form-item>
+          <el-form ref="display" :model="display" :rules="displayRules">
+            <div>
+              <el-switch
+                v-model="display.is_allow_quantity_box"
+                active-text="Quantity Box"
+                @change="changeDisplayStatus($event,'is_allow_quantity_box')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_allow_product_reviews"
+                active-text="Allow Product Reviews"
+                @change="changeDisplayStatus($event,'is_allow_product_reviews')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_auto_approve_reviews"
+                active-text="Auto Approve Reviews"
+                @change="changeDisplayStatus($event,'is_auto_approve_reviews')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_wishlist"
+                active-text="Enable Wishlist"
+                @change="changeDisplayStatus($event,'is_enable_wishlist')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_comparsion"
+                active-text="Enable Product Comparison"
+                @change="changeDisplayStatus($event,'is_enable_product_comparsion')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_thumbnail_image"
+                active-text="Enable Product Thumbnail Images"
+                @change="changeDisplayStatus($event,'is_enable_product_thumbnail_image')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_price"
+                active-text="Show Product Price"
+                @change="changeDisplayStatus($event,'is_enable_product_price')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_brand"
+                active-text="Show Product Brand"
+                @change="changeDisplayStatus($event,'is_enable_product_brand')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_shipping_price"
+                active-text="Show Product Shipping Cost"
+                @change="changeDisplayStatus($event,'is_enable_product_shipping_price')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_rating"
+                active-text="Show Product Rating"
+                @change="changeDisplayStatus($event,'is_enable_product_rating')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_expected_delivery_date"
+                active-text="Show Expected Delivery Date"
+                @change="changeDisplayStatus($event,'is_enable_expected_delivery_date')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_add_to_cart"
+                active-text="Show Add to Cart Option"
+                @change="changeDisplayStatus($event,'is_enable_add_to_cart')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="display.is_enable_product_sku"
+                active-text="Show Product SKU"
+                @change="changeDisplayStatus($event,'is_enable_product_sku')"
+              >Show Product SKU</el-switch>
+            </div>
+            <div>
+              <el-form-item label="New Product Parameter Set Up" prop="new_product_days">
+                <el-input
+                  v-model="display.new_product_days"
+                  @change="changeDisplayStatus($event,'new_product_days')"
+                  placeholder="Enter the no. of day"
+                ></el-input>
+              </el-form-item>
+            </div>
 
             <p>Best Seller Parameter Set Up</p>
 
             <el-form-item>
-              <el-radio-group @change="changeBestSeller" v-model="display.best_seller_type">
+              <el-radio-group
+                @change="changeDisplayStatus($event,'best_seller_type')"
+                v-model="display.best_seller_type"
+              >
                 <el-radio label="sales_volume">Sales Volume</el-radio>
                 <el-radio label="product_rating">Product Rating</el-radio>
                 <el-radio label="sales_amt">Sales Amount</el-radio>
@@ -107,59 +124,66 @@
 
         <el-tab-pane label="Security &amp; Privacy " name="securityPrivacy">
           <el-form ref="security" :model="security">
-            <el-switch
-              v-model="security.is_enable_complex_password"
-              active-text
-              inactive-text="Complex Password"
-              @change="changeComplexPwd"
-            ></el-switch>
-            <el-switch
-              v-model="security.is_enable_cookie_tracking"
-              active-text
-              inactive-text="Cookie Consent Tracking"
-              @change="changeCookieTracking"
-            ></el-switch>
-            <el-switch
-              v-model="security.is_enable_analytics"
-              active-text
-              inactive-text="Analytics for my business"
-              @change="changeAnalytics"
-            ></el-switch>
+            <div>
+              <el-switch
+                v-model="security.is_enable_complex_password"
+                active-text="Complex Password"
+                @change="changeSecurityStatus($event,'is_allow_quantity_box')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="security.is_enable_cookie_tracking"
+                active-text="Cookie Consent Tracking"
+                @change="changeSecurityStatus($event,'is_allow_quantity_box')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="security.is_enable_analytics"
+                active-text="Analytics for my business"
+                @change="changeSecurityStatus($event,'is_allow_quantity_box')"
+              ></el-switch>
+            </div>
           </el-form>
         </el-tab-pane>
 
         <el-tab-pane label="Notification Settings" name="notificationSettings">
           <el-form ref="notification" :model="notification">
-            <el-switch
-              v-model="notification.is_product_review_notification"
-              active-text
-              inactive-text="Product Review Notification"
-              @change="changeReviewNotification"
-            ></el-switch>
-            <el-switch
-              v-model="notification.is_forward_order_invoice"
-              active-text
-              inactive-text="Forward Order Invoice"
-              @change="changeForwardOrder"
-            >Send message / emails of their order invoices</el-switch>
-            <el-switch
-              v-model="notification.is_forward_shipping_status"
-              active-text
-              inactive-text="Forward Shipping Status"
-              @change="changeForwardShipping"
-            ></el-switch>
-            <el-switch
-              v-model="notification.is_enable_cart_notification"
-              active-text
-              inactive-text="Abandoned Card Notification"
-              @change="changeCartNotification"
-            ></el-switch>
+            <div>
+              <el-switch
+                v-model="notification.is_product_review_notification"
+                active-text="Product Review Notification"
+                @change="changeNotificationStatus($event, 'is_product_review_notification')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="notification.is_forward_order_invoice"
+                active-text="Forward Order Invoice"
+                @change="changeNotificationStatus($event, 'is_forward_order_invoice')"
+              >Send message / emails of their order invoices</el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="notification.is_forward_shipping_status"
+                active-text="Forward Shipping Status"
+                @change="changeNotificationStatus($event, 'is_forward_shipping_status')"
+              ></el-switch>
+            </div>
+            <div>
+              <el-switch
+                v-model="notification.is_enable_cart_notification"
+                active-text="Abandoned Card Notification"
+                @change="changeNotificationStatus($event, 'is_enable_cart_notification')"
+              ></el-switch>
+            </div>
 
             <p>Product Page Inventory Level Notification</p>
             <el-form-item>
               <el-radio-group
                 v-model="notification.inventory_notification_type"
-                @change="changePageInventory"
+                @change="changeNotificationStatus($event, 'inventory_notification_type')"
               >
                 <el-radio
                   label="level_1"
@@ -182,7 +206,6 @@
 </template>
 
 <script>
-import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting";
 import { default as csgShopApi } from "../../cgs_api/eShopSetting/onlineShopSetting";
 
 export default {
@@ -191,7 +214,7 @@ export default {
     return {
       status: this.status,
       activeName: "display",
-      display: {
+      displayRules: {
         new_product_days: [
           {
             trigger: "input",
@@ -228,7 +251,7 @@ export default {
   methods: {
     updateDisplay(obj) {
       var data = { ...obj, user_id: this.user_id };
-      updateShop.default
+      csgShopApi
         .updateDisplayData(data)
         .then(response => {
           if (response.code == 0) {
@@ -243,7 +266,7 @@ export default {
     },
     updateSecurity(obj) {
       var data = { ...obj, user_id: this.user_id };
-      updateShop.default
+      csgShopApi
         .updateSecurityData(data)
         .then(response => {
           if (response.code == 0) {
@@ -258,7 +281,7 @@ export default {
     },
     updateNotification(obj) {
       var data = { ...obj, user_id: this.user_id };
-      updateShop.default
+      csgShopApi
         .updateNotificationData(data)
         .then(response => {
           if (response.code == 0) {
@@ -338,74 +361,16 @@ export default {
     changeMode(val) {
       this.changeStatusMode({ status: val });
     },
-    changeQuantity(val) {
-      this.updateDisplay({ is_allow_quantity_box: val });
+    changeDisplayStatus(val, name) {
+      console.log(val, name);
+      this.updateDisplay({ [name]: val });
     },
-    changeProductReview(val) {
-      this.updateDisplay({ is_allow_product_reviews: val });
+
+    changeSecurityStatus(val, name) {
+      this.updateSecurity({ [name]: val });
     },
-    changeAutoApproveReview(val) {
-      this.updateDisplay({ is_auto_approve_reviews: val });
-    },
-    changeWishlist(val) {
-      this.updateDisplay({ is_enable_wishlist: val });
-    },
-    changeProductComparison(val) {
-      this.updateDisplay({ is_enable_product_comparsion: val });
-    },
-    changeProductThumbnail(val) {
-      this.updateDisplay({ is_enable_product_comparsion: val });
-    },
-    changeProductPrice(val) {
-      this.updateDisplay({ is_enable_product_price: val });
-    },
-    changeProductBrand(val) {
-      this.updateDisplay({ is_enable_product_brand: val });
-    },
-    changeShippingCost(val) {
-      this.updateDisplay({ is_enable_product_shipping_price: val });
-    },
-    changeProductRating(val) {
-      this.updateDisplay({ is_enable_product_rating: val });
-    },
-    changeExpectedDelivery(val) {
-      this.updateDisplay({ is_enable_expected_delivery_date: val });
-    },
-    changeCart(val) {
-      this.updateDisplay({ is_enable_add_to_cart: val });
-    },
-    changeProductSku(val) {
-      this.updateDisplay({ is_enable_product_sku: val });
-    },
-    changeDays(val) {
-      this.updateDisplay({ new_product_days: val });
-    },
-    changeBestSeller(val) {
-      this.updateDisplay({ best_seller_product: val });
-    },
-    changeComplexPwd(val) {
-      this.updateSecurity({ is_enable_complex_password: val });
-    },
-    changeCookieTracking(val) {
-      this.updateSecurity({ is_enable_cookie_tracking: val });
-    },
-    changeAnalytics(val) {
-      this.updateSecurity({ is_enable_cookie_tracking: val });
-    },
-    changeReviewNotification(val) {
-      this.updateNotification({ is_product_review_notification: val });
-    },
-    changeForwardOrder(val) {
-      this.updateNotification({ is_forward_order_invoice: val });
-    },
-    changeForwardShipping(val) {
-      this.updateNotification({ is_forward_shipping_status: val });
-    },
-    changeCartNotification(val) {
-      this.updateNotification({ is_forward_shipping_status: val });
-    },
-    changePageInventory(val) {
-      this.updateNotification({ inventory_notification_type: val });
+    changeNotificationStatus(val, name) {
+      this.updateNotification({ [name]: val });
     }
   }
 };
