@@ -25,7 +25,7 @@ export default {
 
     async updateDisplayData(obj) {
         return await requestCgs({
-            url: '/shop/update/display',
+            url: '/cgs_api/shop/update/display',
             method: 'post',
             data: obj,
         })
@@ -33,7 +33,7 @@ export default {
 
     async updateSecurityData(obj) {
         return await requestCgs({
-            url: '/shop/update/security',
+            url: '/cgs_api/shop/update/security',
             method: 'post',
             data: obj,
         })
@@ -41,7 +41,7 @@ export default {
 
     async updateNotificationData(obj) {
         return await requestCgs({
-            url: '/shop/update/notification',
+            url: '/cgs_api/shop/update/notification',
             method: 'post',
             data: obj,
         })
@@ -49,7 +49,7 @@ export default {
 
     async updateMaintenanceMode(obj) {
         return await requestCgs({
-            url: '/shop/update/maintenance',
+            url: '/cgs_api/shop/update/status',
             method: 'post',
             data: obj,
         })

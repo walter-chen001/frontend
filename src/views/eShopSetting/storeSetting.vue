@@ -2,9 +2,7 @@
   <el-row :gutter="0" type="flex" justify="center" class="centerSection">
     <div class="sectionContainer">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-
-        <el-switch v-model="is_maintenance_mode" active-text inactive-text="Store Status"
-                   true-label=1 false-label=0
+        <el-switch v-model="status" active-text inactive-text="Store Status"
                    @change="changeMode"></el-switch>
         <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display">
@@ -25,7 +23,7 @@
             >Auto Approve Reviews</el-checkbox>
             <el-checkbox
               v-model="display.is_enable_wishlist"
-              true-label=1 false-label=0v
+              true-label=1 false-label=0
               @change="changeWishlist"
             >Enable Wishlist</el-checkbox>
             <el-checkbox
@@ -100,15 +98,18 @@
             <p>Complex Password</p>
             <el-checkbox
               v-model="security.is_enable_complex_password"
+              true-label=1 false-label=0
               @change="changeComplexPwd"
             >Enforce complexity rule for shoppers password.</el-checkbox>
             <p>Cookie Consent Tracking</p>
             <el-checkbox
               v-model="security.is_enable_cookie_tracking"
+              true-label=1 false-label=0
               @change="changeCookieTracking"
             >Yes, turn on cookie consent banner in my site.</el-checkbox>
             <p>Analytics for my business</p>
-            <el-checkbox v-model="security.is_enable_analytics" @change="changeAnalytics">
+            <el-checkbox v-model="security.is_enable_analytics"
+                         true-label=1 false-label=0 @change="changeAnalytics">
               Track customer on screen behaviour (
               <a href="https://clicky.com/">https://clicky.com/</a>)
             </el-checkbox>
@@ -146,16 +147,16 @@
             <p>Product Page Inventory Level Notification</p>
             <el-form-item>
               <el-radio-group
-                v-model="notification.page_inventory_notification"
+                v-model="notification.inventory_notification_type"
                 @change="changePageInventory">
                 <el-radio
-                  label="inventory_level_1_notification"
+                  label="level_1"
                 >Always notify the current inventory level of the product in the product page of the e-shop</el-radio>
-                <el-radio label="inventory_level_2_notification">
+                <el-radio label="level_2">
                   Notify the current inventory level if the product in the product page if the e-shop only if it
                   falls below the low inventory level.
                 </el-radio>
-                <el-radio label="inventory_level_3_notification">
+                <el-radio label="level_3">
                   Notify that the inventory level of this product is low but not the exact inventory level of
                   the product in the product page of the e-shop, if it falls below the low inventory level.
                 </el-radio>
@@ -171,13 +172,18 @@
 <script>
 
 import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting"
+import { default as csgShopApi } from "../../cgs_api/eShopSetting/onlineShopSetting";
+
 export default {
   name: "storeSetting",
   data() {
     return {
-      is_maintenance_mode: false,
+      status: this.status,
       activeName: "display"
     };
+  },
+  mounted() {
+    this.getStoredData();
   },
   computed: {
     display() {
@@ -188,6 +194,11 @@ export default {
     },
     notification() {
       return this.$store.state.setting.stores.notification;
+    },
+    status: {
+        get() {
+            return this.$store.state.setting.status;
+        }
     },
     user_id: {
         get() {
@@ -235,10 +246,46 @@ export default {
           console.log(error);
         });
     },
-    changeMaintanenceMode(obj) {
-        var data= {
-            data : {...obj, user_id : this.user_id}
-        };
+    getStoredData() {
+          const dataToSend = {
+              user_id: this.user_id
+          };
+          csgShopApi
+              .getShopData(dataToSend)
+              .then(({ data }) => {
+                  console.log(data);
+                  this.display.is_allow_quantity_box = data.is_allow_quantity_box;
+                  this.display.is_allow_product_reviews = data.is_allow_product_reviews;
+                  this.display.is_auto_approve_reviews = data.is_auto_approve_reviews;
+                  this.display.is_enable_wishlist = data.is_enable_wishlist;
+                  this.display.is_enable_product_comparsion = data.is_enable_product_comparsion;
+                  this.display.is_enable_product_thumbnail_image = data.is_enable_product_thumbnail_image;
+                  this.display.is_enable_product_price = data.is_enable_product_price;
+                  this.display.is_enable_product_brand = data.is_enable_product_brand;
+                  this.display.is_enable_product_shipping_price = data.is_enable_product_shipping_price;
+                  this.display.is_enable_product_rating = data.is_enable_product_rating;
+                  this.display.is_enable_expected_delivery_date = data.is_enable_expected_delivery_date;
+                  this.display.is_enable_add_to_cart = data.is_enable_add_to_cart;
+                  this.display.is_enable_product_sku = data.is_enable_product_sku;
+                  this.display.new_product_days = data.new_product_days;
+                  this.display.best_seller_type = data.best_seller_type;
+                  this.security.is_enable_complex_password = data.is_enable_complex_password;
+                  this.security.is_enable_cookie_tracking = data.is_enable_cookie_tracking;
+                  this.security.is_enable_analytics = data.is_enable_analytics;
+                  this.notification.is_product_review_notification = data.is_product_review_notification;
+                  this.notification.is_forward_order_invoice = data.is_forward_order_invoice;
+                  this.notification.is_forward_shipping_status = data.is_forward_shipping_status;
+                  this.notification.is_enable_cart_notification = data.is_enable_cart_notification;
+                  this.notification.page_inventory_notification = data.page_inventory_notification;
+                  this.status = data.status;
+
+                  // this.shop.
+                  // this.shop.
+              })
+              .catch(e => console.log(e));
+      },
+    changeStatusMode(obj) {
+        var data= {...obj, user_id : this.user_id};
         updateShop.default.updateMaintenanceMode(data).then(response => {
             if (response.code == 0) {
                 this.$notify.success({ title: "提示", message: response.msg });
@@ -246,12 +293,12 @@ export default {
                 this.$notify.error({ title: "提示", message: response.msg });
             }
         })
-            .catch(error => {
-                console.log(error);
-            });
+        .catch(error => {
+            console.log(error);
+        });
     },
     changeMode(val) {
-      this.changeMaintanenceMode({is_maintenance_mode: val});
+      this.changeStatusMode({'status': val});
     },
     changeQuantity(val) {
       this.updateDisplay({ is_allow_quantity_box: val });

@@ -3,10 +3,11 @@ import api from '@/api/eShopSetting/onlineShopSetting'
 const setting = {
     namespaced: true,
     state: {
+        status: false,
         shop: {
             name: '',
             shop_logo: [],
-            region: '',
+            region: [],
             languages: [],
             currency: [],
         },
@@ -40,7 +41,7 @@ const setting = {
                 is_forward_order_invoice: false,
                 is_forward_shipping_status: false,
                 is_enable_cart_notification: false,
-                page_inventory_notification: '',
+                inventory_notification_type: '',
             }
         }
     },

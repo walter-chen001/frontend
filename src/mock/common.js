@@ -80,7 +80,7 @@ export default {
                         "type": "m010",
                         "authority": "ebix99900901",
                         "moduleID": "99998",
-                        "name": "eShopSetting",
+                        "name": "shopSetting",
                         "itemID": "1060",
                         "moduleName": "Shop 设置", //shop-setting
                         "isModul": true,
