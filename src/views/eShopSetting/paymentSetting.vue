@@ -5,19 +5,19 @@
       <div class="border">
         <el-form ref="payments" :model="payments" class="mb-3">
           <h4 class="header-title mb-3 text-center">Available Payment Options</h4>
-          <el-checkbox-group v-model="checkList" class="horCenter">
-            <el-checkbox :label="1" v-model="wechat_pay">WeChat Pay</el-checkbox>
-            <el-checkbox :label="2" v-model="payPal">PayPal</el-checkbox>
-            <el-checkbox :label="3" v-model="aliPay">AliPay</el-checkbox>
-            <el-checkbox :label="4" v-model="stripe">Stripe</el-checkbox>
-          </el-checkbox-group>
+          <!--<el-checkbox-group>-->
+            <el-checkbox @change="changeWeChat" v-model="wechat_pay">WeChat Pay</el-checkbox>
+            <el-checkbox @change="changePayPal" v-model="payPal">PayPal</el-checkbox>
+            <el-checkbox @change="changeAliPay" v-model="aliPay">AliPay</el-checkbox>
+            <el-checkbox @change="changeStripe" v-model="stripe">Stripe</el-checkbox>
+          <!--</el-checkbox-group>-->
         </el-form>
       </div>
       <el-tabs :tab-position="tabPosition">
         <el-tab-pane label="WeChat Set Up">
-          <el-form ref="wechat" :model="wechat" :rules="rules">
+          <el-form ref="wechat" :model="wechat" :rules="wechatrules">
             <el-form-item label="WeChat ID">
-              <el-input v-model="wechat.id"></el-input>
+              <el-input v-model="wechat.id" prop="wechat_id"></el-input>
             </el-form-item>
             <el-form-item label="Bank Account No">
               <el-input v-model="wechat.bank_acc_no"></el-input>
@@ -91,8 +91,31 @@ export default {
         id: null,
         bank_acc_no: "",
         iabn_no: ""
+      },
+      wechatrules : {
+          wechat_id : [
+              {required: true, message: "Please enter WeChat ID", trigger: "change"}
+          ],
+
       }
     };
+  },
+  methods: {
+      changeWeChat(val) {
+
+      },
+      changePayPal(val) {
+
+      },
+      changeStripe(val) {
+
+      },
+      changeAliPay(val) {
+
+      },
+      updatePayment(obj) {
+
+      }
   }
 };
 </script>

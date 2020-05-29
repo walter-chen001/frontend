@@ -1981,7 +1981,7 @@
 .el-tag--small .el-icon-close{-webkit-transform:scale(.8);transform:scale(.8)}
 .el-tag--mini{height:20px;padding:0 5px;line-height:19px}
 .el-tag--mini .el-icon-close{margin-left:-3px;-webkit-transform:scale(.7);transform:scale(.7)}
-.el-cascader{display:inline-block;position:relative;font-size:14px;line-height:40px}
+.el-cascader{display:inline-block;position:relative;font-size:14px;line-height:40px;width:100%}
 .el-cascader:not(.is-disabled):hover .el-input__inner{cursor:pointer;border-color:#C0C4CC}
 .el-cascader .el-input .el-input__inner:focus,.el-cascader .el-input.is-focus .el-input__inner{border-color:#727CF5}
 .el-cascader .el-input{cursor:pointer}

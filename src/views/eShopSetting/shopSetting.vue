@@ -2,71 +2,31 @@
   <div>
     <el-row :gutter="0" type="flex" justify="center" class="centerSection">
       <div class="sectionContainer">
-          {{user_id}} --------
         <el-card class="box-card">
           <el-form :model="shop" ref="shop" :rules="shopDetailrules">
-            <el-form-item label="E-Shop Name" prop="shop_name">
-              <el-input v-model="shop.shop_name" @change="changeShopName"></el-input>
+            <el-form-item label="E-Shop Name" prop="name">
+              <el-input v-model="shop.name"></el-input>
             </el-form-item>
-            {{logo}} -------- {{uploadData}}
-            <el-form-item label="E-Shop logo">
-              <el-upload
-                class="upload-demo"
-                ref="upload"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                @on-success="handleSuccess"
-                :http-request="uploadLogo"
-                :data="uploadData"
-                :file-List="logo"
-                :auto-upload="false"
-                multiple
-                :limit="1"
-              >
-                <el-button native-type="button" size="large" @click="submitUpload">
-                  Upload
-                  <i class="el-icon-upload2"></i>
-                </el-button>
-              </el-upload>
-            </el-form-item>
-            <el-form-item label="Supported Languages" prop="language">
-              <el-select
-                v-model="shop.language"
-                multiple
-                @change="changeLanguage"
-                multiple-limit="3"
-                placeholder="Select"
-              >
+            <el-form-item label="Supported Languages" prop="languages">
+              <el-select v-model="shop.languages" multiple multiple-limit="3" placeholder="Select">
                 <el-option
-                  v-for="item in shopData.languages"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
+                  v-for="lang in langData"
+                  :key="lang.value"
+                  :label="lang.label"
+                  :value="lang.value"
                 ></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="Region" prop="region">
-              <el-select v-model="shop.region" placeholder="Select" @change="changeRegion">
-                <el-option
-                  v-for="item in shopData.regionList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </el-select>
+              <el-cascader v-model="shop.region" :options="regionData"></el-cascader>
             </el-form-item>
+
             <el-form-item label="Billing Currency" prop="currency">
-              <el-select
-                v-model="shop.currency"
-                multiple
-                @change="changeCurrency"
-                multiple-limit="3"
-                placeholder="Select"
-              >
+              <el-select v-model="shop.currency" multiple multiple-limit="3" placeholder="Select">
                 <el-option
-                  v-for="item in shopData.currency"
+                  v-for="item in currencyData"
                   :key="item.value"
-                  :label="item.lang_name + ' ' + item.symbol"
+                  :label="item.attributes.name + ' ' + item.attributes.symbol"
                   :value="item.value"
                 ></el-option>
               </el-select>
@@ -82,13 +42,12 @@
 </template>
 
 <script>
-import * as ALL from "../../api/eShopSetting/onlineShopSetting";
-
-import * as shopApi from "../../api/eShopSetting/onlineShopSetting";
-import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting"
+import { default as shopApi } from "../../api/eShopSetting/onlineShopSetting";
+import { default as csgShopApi } from "../../cgs_api/eShopSetting/onlineShopSetting";
+import { getCompanyId } from "@/utils/auth";
 
 export default {
-  name: "eShopSetting",
+  name: "shopSetting",
   data() {
     const selectAtleast3 = ({ field }, value, callback) => {
       if (value.length <= 2) {
@@ -99,151 +58,159 @@ export default {
     };
 
     return {
-        action: '',
-        uploadData: {user_id: this.user_id},
-        shopData: [],
-        logo: [],
-        DataShop: [],
-        shopDetailrules: {
-            shop_name: [
-                {
-                    required: true,
-                    message: "Please input Shop name",
-                    trigger: "blur"
-                },
-                {
-                    min: 3,
-                    max: 50,
-                    message: "Length should be 3 to 50",
-                    trigger: "blur"
-                }
-            ],
-            // shop_logo: [
-            //     {required: true, message: "Please upload logo", trigger: "change"},
-            // ],
-            region: [
-                {required: true, message: "Please Time Region", trigger: "change"}
-            ],
-            language: [
-                {
-                    required: true,
-                    message: "Please select any 3 languages",
-                    trigger: "change"
-                },
-                {
-                    trigger: "blur",
-                    validator: selectAtleast3
-                }
-            ],
-            currency: [
-                {
-                    required: true,
-                    message: "Please select any 3 Currencies",
-                    trigger: "change"
-                },
-                {
-                    trigger: "blur",
-                    validator: selectAtleast3
-                }
-            ]
-        },
-    }
+      langData: [],
+      currencyData: [],
+      regionData: [],
+      shopDetailrules: {
+        name: [
+          {
+            required: true,
+            message: "Please input Shop name",
+            trigger: "blur"
+          },
+          {
+            min: 3,
+            max: 50,
+            message: "Length should be 3 to 50",
+            trigger: "blur"
+          }
+        ],
+        region: [
+          { required: true, message: "Please select Region", trigger: "change" }
+        ],
+        languages: [
+          {
+            required: true,
+            message: "Please select any 3 Currencies",
+            trigger: "change"
+          },
+          {
+            trigger: "change",
+            validator: selectAtleast3
+          }
+        ],
+        currency: [
+          {
+            required: true,
+            message: "Please select any 3 Currencies",
+            trigger: "change"
+          },
+          {
+            trigger: "change",
+            validator: selectAtleast3
+          }
+        ]
+      }
+    };
   },
   mounted() {
-    this.getData();
+    this.getLangData();
+    this.getCurrencyData();
+    this.getRegionData();
+    this.getStoredData();
   },
-  // created() {
-  //   this.getData();
-  // },
   computed: {
-      shop: {
-          get(){
-              return this.$store.state.setting.shop
-          }
-      },
-      user_id: {
-          get() {
-              return this.$store.state.user.user.user_id
-          }
+    shop: {
+      get() {
+        return this.$store.state.setting.shop;
       }
+    },
+    user_id: {
+      get() {
+        return this.$store.state.user.user.user_id;
+      }
+    }
   },
   methods: {
-    uploadLogo(file, fileList) {
-      console.log(file, 'fileeeeeeeeeeeeeeeeeeeeeeeee');
-      this.logo.push(file);
-      this.shop.shop_logo = this.logo;
-      console.log(this.shop.shop_logo, 'logooooooooooooooooooooooooooooooooo');
-    },
-    getData(){
-        shopApi.default.getShopData().then(response => {
-            if(response.code==0){
-                this.shopData = response.data;
-            }else{
-                this.$notify.error({title:'提示',message:response.msg});
-            }
-        }).catch(error => {
-            console.log(error)
+    getLangData() {
+      shopApi
+        .getLanguageData()
+        .then(response => {
+          if (response.code == 0) {
+            this.langData = response.data;
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
         })
+        .catch(error => {
+          console.log(error);
+        });
     },
-    submitUpload() {
-        console.log('this.$refs.upload',this.$refs.upload.submit);
-        this.$refs.upload.submit();
-    },
-    handleLogoChange(e, b, c) {
-      console.log(e, b, c);
-    },
-    handleSuccess (res, file, fileList) {
-        console.log('res', res, 'file', file, 'fileList', fileList);
-        this.shopData.shop_logo = 'shop_logo';
-        this.$refs.shopData.validateField('shop_logo')
-    },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`Cancel the transfer of ${file.name} ?`);
-    },
-    update(obj){
-        var data={
-            data : {...obj, user_id : this.user_id}
-        };
-        updateShop.default.updateData().then(response => {
-            if(response.code==0){
-                console.log('successssssssssssss', response.data);
-                this.$notify.success({title:"提示",message:response.msg});
-            }else{
-                this.$notify.error({title:'提示',message:response.msg});
-            }
-        }).catch(error => {
-            console.log(error)
+
+    getCurrencyData() {
+      shopApi
+        .getCurrencyList()
+        .then(response => {
+          if (response.code == 0) {
+            this.currencyData = response.data;
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
         })
+        .catch(error => {
+          console.log(error);
+        });
     },
-    // changeShopName(val) {
-    //   this.update({'shop_name':val})
-    // },
-    // changeCurrency(val){
-    //     this.update({'currency' : val})
-    // },
-    // changeRegion(val){
-    //     this.update({'region': val})
-    // },
-    // changeLanguage(val) {
-    //     this.update({'language': val})
-    // },
+
+    getRegionData() {
+      shopApi
+        .getRegionList()
+        .then(response => {
+          if (response.code == 0) {
+            this.regionData = response.data;
+          } else {
+            this.$notify.error({ title: "提示", message: response.msg });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getStoredData() {
+      const dataToSend = {
+        user_id: this.user_id
+      };
+      csgShopApi
+        .getShopData(dataToSend)
+        .then(({ data }) => {
+          console.log(data);
+          this.shop.name = data.name;
+          this.shop.languages = data.languages;
+          this.shop.region = data.region;
+          this.shop.currency = data.currency;
+          console.log("shop name", this.shop.name);
+          // this.shop.
+          // this.shop.
+        })
+        .catch(e => console.log(e));
+    },
+
     submitToSave(formData) {
-        var data={
-            data : {...this.shop, user_id : this.user_id}
-        };
-        console.log(data, 'jsgdsjhdgsajhdsjhdvsfhmsavafsmfvsmfhvsmhjfvh');
-      console.log(this.$refs[formData].validate);
+      var data = {
+        ...this.shop,
+        region: JSON.stringify(this.shop.region.map(data => data)),
+        languages: JSON.stringify(this.shop.languages.map(data => data)),
+        currency: JSON.stringify(this.shop.currency.map(data => data)),
+        user_id: this.user_id,
+        company_id: getCompanyId()
+      };
+      console.log(data);
+
+      delete data.shop_logo;
+
       this.$refs[formData].validate(valid => {
         if (valid) {
-            shopApi.default.postData(data).then(response => {
-                if(response.code==0){
-                    this.DataShop = response.data;
-                    this.$notify.success({title:"提示",message:response.msg});
-                }else{
-                    this.$notify.error({title:'提示',message:response.msg});
-                }
-            }).catch(error => {
-                console.log(error)
+          csgShopApi
+            .postData(data)
+            .then(response => {
+              if (response.code == 0) {
+                this.$notify.success({ title: "提示", message: response.msg });
+              } else {
+                this.$notify.error({ title: "提示", message: response.msg });
+              }
+            })
+            .catch(error => {
+              console.log(error);
             });
         } else {
           console.log("error in saving!!");
