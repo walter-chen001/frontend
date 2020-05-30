@@ -32,7 +32,7 @@
               </el-select>
             </el-form-item>
             <div class="text-right pt-10">
-              <el-button type="primary" size="small" @click="submitToSave('shop')">Save</el-button>
+              <el-button :loading="loading" :disabled="loading" type="primary" size="small" @click="submitToSave('shop')">{{loading ? "Saving.." : "Save"}}</el-button>
             </div>
           </el-form>
         </el-card>
@@ -53,6 +53,7 @@ export default {
       langData: [],
       currencyData: [],
       regionData: [],
+      loading: false,
       shopDetailrules: {
         name: [
           {
@@ -184,6 +185,7 @@ export default {
 
       this.$refs[formData].validate(valid => {
         if (valid) {
+          this.loading = true;
           csgShopApi
             .postData(data)
             .then(response => {
@@ -192,6 +194,7 @@ export default {
               } else {
                 this.$notify.error({ title: "提示", message: response.msg });
               }
+              this.loading = false;
             })
             .catch(error => {
               console.log(error);

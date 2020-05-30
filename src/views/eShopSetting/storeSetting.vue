@@ -2,7 +2,9 @@
   <el-row :gutter="0" type="flex" justify="center" class="centerSection">
     <div class="sectionContainer">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-switch v-model="status" active-text inactive-text="Store Status" @change="changeMode"></el-switch>
+        <div style="margin-left: 820px">
+          <el-switch v-model="status" active-text inactive-text="Store Status" @change="changeMode"></el-switch>
+        </div>
         <el-tab-pane label="Display" name="display">
           <el-form ref="display" :model="display" :rules="displayRules">
             <div>
@@ -306,40 +308,26 @@ export default {
           this.display.is_allow_product_reviews = data.is_allow_product_reviews;
           this.display.is_auto_approve_reviews = data.is_auto_approve_reviews;
           this.display.is_enable_wishlist = data.is_enable_wishlist;
-          this.display.is_enable_product_comparsion =
-            data.is_enable_product_comparsion;
-          this.display.is_enable_product_thumbnail_image =
-            data.is_enable_product_thumbnail_image;
+          this.display.is_enable_product_comparsion = data.is_enable_product_comparsion;
+          this.display.is_enable_product_thumbnail_image = data.is_enable_product_thumbnail_image;
           this.display.is_enable_product_price = data.is_enable_product_price;
           this.display.is_enable_product_brand = data.is_enable_product_brand;
-          this.display.is_enable_product_shipping_price =
-            data.is_enable_product_shipping_price;
+          this.display.is_enable_product_shipping_price = data.is_enable_product_shipping_price;
           this.display.is_enable_product_rating = data.is_enable_product_rating;
-          this.display.is_enable_expected_delivery_date =
-            data.is_enable_expected_delivery_date;
+          this.display.is_enable_expected_delivery_date = data.is_enable_expected_delivery_date;
           this.display.is_enable_add_to_cart = data.is_enable_add_to_cart;
           this.display.is_enable_product_sku = data.is_enable_product_sku;
           this.display.new_product_days = data.new_product_days;
           this.display.best_seller_type = data.best_seller_type;
-          this.security.is_enable_complex_password =
-            data.is_enable_complex_password;
-          this.security.is_enable_cookie_tracking =
-            data.is_enable_cookie_tracking;
+          this.security.is_enable_complex_password = data.is_enable_complex_password;
+          this.security.is_enable_cookie_tracking = data.is_enable_cookie_tracking;
           this.security.is_enable_analytics = data.is_enable_analytics;
-          this.notification.is_product_review_notification =
-            data.is_product_review_notification;
-          this.notification.is_forward_order_invoice =
-            data.is_forward_order_invoice;
-          this.notification.is_forward_shipping_status =
-            data.is_forward_shipping_status;
-          this.notification.is_enable_cart_notification =
-            data.is_enable_cart_notification;
-          this.notification.page_inventory_notification =
-            data.page_inventory_notification;
+          this.notification.is_product_review_notification = data.is_product_review_notification;
+          this.notification.is_forward_order_invoice = data.is_forward_order_invoice;
+          this.notification.is_forward_shipping_status = data.is_forward_shipping_status;
+          this.notification.is_enable_cart_notification = data.is_enable_cart_notification;
+          this.notification.page_inventory_notification = data.page_inventory_notification;
           this.status = data.status;
-
-          // this.shop.
-          // this.shop.
         })
         .catch(e => console.log(e));
     },
@@ -398,21 +386,6 @@ export default {
 }
 .text-right {
   text-align: right;
-}
-
-.el-checkbox {
-  margin-bottom: 10px;
-  display: flex !important;
-  .el-checkbox__label {
-    font-size: 12px;
-    white-space: normal;
-  }
-}
-.checkboxHeading {
-  display: flex;
-  .el-checkbox:last-of-type {
-    margin-right: 10px;
-  }
 }
 .bg-gray-header {
   font-size: 14px;
