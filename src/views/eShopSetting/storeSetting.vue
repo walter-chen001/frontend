@@ -2,7 +2,7 @@
   <el-row :gutter="0" type="flex" justify="center" class="centerSection">
     <div class="sectionContainer">
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <div style="margin-left: 820px">
+        <div style="text-align: end">
           <el-switch v-model="status" active-text inactive-text="Store Status" @change="changeMode"></el-switch>
         </div>
         <el-tab-pane label="Display" name="display">
@@ -127,25 +127,34 @@
         <el-tab-pane label="Security &amp; Privacy " name="securityPrivacy">
           <el-form ref="security" :model="security">
             <div>
-              <el-switch
-                v-model="security.is_enable_complex_password"
-                active-text="Complex Password"
-                @change="changeSecurityStatus($event,'is_allow_quantity_box')"
-              ></el-switch>
+              <el-tooltip placement="right-start">
+                <div slot="content">Enforce complexity rule for shopper passwords.</div>
+                <el-switch
+                        v-model="security.is_enable_complex_password"
+                        active-text="Complex Password"
+                        @change="changeSecurityStatus($event,'is_allow_quantity_box')"
+                ></el-switch>
+              </el-tooltip>
             </div>
             <div>
-              <el-switch
-                v-model="security.is_enable_cookie_tracking"
-                active-text="Cookie Consent Tracking"
-                @change="changeSecurityStatus($event,'is_allow_quantity_box')"
-              ></el-switch>
+              <el-tooltip placement="right-start">
+                <div slot="content">Yes, turn on cookie consent banner in my site</div>
+                <el-switch
+                        v-model="security.is_enable_cookie_tracking"
+                        active-text="Cookie Consent Tracking"
+                        @change="changeSecurityStatus($event,'is_allow_quantity_box')"
+                ></el-switch>
+              </el-tooltip>
             </div>
             <div>
-              <el-switch
-                v-model="security.is_enable_analytics"
-                active-text="Analytics for my business"
-                @change="changeSecurityStatus($event,'is_allow_quantity_box')"
-              ></el-switch>
+              <el-tooltip placement="right-start">
+                <div slot="content">Track customer on screen behavior</div>
+                <el-switch
+                        v-model="security.is_enable_analytics"
+                        active-text="Analytics for my business"
+                        @change="changeSecurityStatus($event,'is_allow_quantity_box')"
+                ></el-switch>
+              </el-tooltip>
             </div>
           </el-form>
         </el-tab-pane>
@@ -153,25 +162,34 @@
         <el-tab-pane label="Notification Settings" name="notificationSettings">
           <el-form ref="notification" :model="notification">
             <div>
-              <el-switch
-                v-model="notification.is_product_review_notification"
-                active-text="Product Review Notification"
-                @change="changeNotificationStatus($event, 'is_product_review_notification')"
-              ></el-switch>
+              <el-tooltip placement="right-start">
+                <div slot="content">Send message / emails to customers asking <br/>them to review the purchased products.</div>
+                <el-switch
+                        v-model="notification.is_product_review_notification"
+                        active-text="Product Review Notification"
+                        @change="changeNotificationStatus($event, 'is_product_review_notification')"
+                ></el-switch>
+              </el-tooltip>
             </div>
             <div>
-              <el-switch
-                v-model="notification.is_forward_order_invoice"
-                active-text="Forward Order Invoice"
-                @change="changeNotificationStatus($event, 'is_forward_order_invoice')"
-              >Send message / emails of their order invoices</el-switch>
+              <el-tooltip placement="right-start">
+                <div slot="content">Send message / emails of their order invoices</div>
+                <el-switch
+                        v-model="notification.is_forward_order_invoice"
+                        active-text="Forward Order Invoice"
+                        @change="changeNotificationStatus($event, 'is_forward_order_invoice')"
+                ></el-switch>
+              </el-tooltip>
             </div>
             <div>
-              <el-switch
-                v-model="notification.is_forward_shipping_status"
-                active-text="Forward Shipping Status"
-                @change="changeNotificationStatus($event, 'is_forward_shipping_status')"
-              ></el-switch>
+              <el-tooltip placement="right-start">
+                <div slot="content">Send message / email whenever there is a <br/> change in the shipping status of the product.</div>
+                <el-switch
+                        v-model="notification.is_forward_shipping_status"
+                        active-text="Forward Shipping Status"
+                        @change="changeNotificationStatus($event, 'is_forward_shipping_status')"
+                ></el-switch>
+              </el-tooltip>
             </div>
             <div>
               <el-switch
@@ -303,7 +321,6 @@ export default {
       csgShopApi
         .getShopData(dataToSend)
         .then(({ data }) => {
-          console.log(data);
           this.display.is_allow_quantity_box = data.is_allow_quantity_box;
           this.display.is_allow_product_reviews = data.is_allow_product_reviews;
           this.display.is_auto_approve_reviews = data.is_auto_approve_reviews;
@@ -333,7 +350,7 @@ export default {
     },
     changeStatusMode(obj) {
       var data = { ...obj, user_id: this.user_id };
-      updateShop.default
+        csgShopApi
         .updateMaintenanceMode(data)
         .then(response => {
           if (response.code == 0) {
@@ -397,5 +414,9 @@ export default {
 }
 .el-switch {
   display: block;
+}
+.right {
+  float: right;
+  width: 60px;
 }
 </style>

@@ -3,6 +3,9 @@
     <el-row :gutter="0" type="flex" justify="center" class="centerSection">
       <div class="sectionContainer">
         <el-card class="box-card">
+          <div style="text-align: end">
+            <el-switch v-model="status" active-text inactive-text="Store Status" @change="changeMode"></el-switch>
+          </div>
           <el-form :model="shop" ref="shop" :rules="shopDetailrules">
             <el-form-item label="E-Shop Name" prop="name">
               <el-input v-model="shop.name"></el-input>
@@ -50,6 +53,7 @@ export default {
   name: "shopSetting",
   data() {
     return {
+      status: this.status,
       langData: [],
       currencyData: [],
       regionData: [],
@@ -100,6 +104,11 @@ export default {
         return this.$store.state.setting.shop;
       }
     },
+    status: {
+        get() {
+            return this.$store.state.setting.status;
+        }
+    },
     user_id: {
       get() {
         return this.$store.state.user.user.user_id;
@@ -107,6 +116,24 @@ export default {
     }
   },
   methods: {
+    changeMode(val) {
+        this.changeStatusMode({ status: val });
+    },
+    changeStatusMode(obj) {
+        var data = { ...obj, user_id: this.user_id };
+        csgShopApi
+            .updateMaintenanceMode(data)
+            .then(response => {
+                if (response.code == 0) {
+                    this.$notify.success({ title: "提示", message: response.msg });
+                } else {
+                    this.$notify.error({ title: "提示", message: response.msg });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    },
     getLangData() {
       shopApi
         .getLanguageData()
@@ -158,14 +185,11 @@ export default {
       csgShopApi
         .getShopData(dataToSend)
         .then(({ data }) => {
-          console.log(data);
           this.shop.name = data.name || "";
           this.shop.languages = data.languages || [];
           this.shop.region = data.region || [];
           this.shop.currency = data.currency || [];
-          console.log("shop name", this.shop.name);
-          // this.shop.
-          // this.shop.
+          this.status = data.status;
         })
         .catch(e => console.log(e));
     },
@@ -179,7 +203,6 @@ export default {
         user_id: this.user_id,
         company_id: getCompanyId()
       };
-      console.log(data);
 
       delete data.shop_logo;
 

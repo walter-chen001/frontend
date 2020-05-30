@@ -4,12 +4,12 @@
     <div class="sectionContainer">
       <div class="border">
         <el-form ref="payments" :model="payments" class="mb-3">
-          <h4 class="header-title mb-3 text-center">Available Payment Options</h4>
+          <h4 class="header-title mb-3 text-left">Available Payment Options</h4>
           <!--<el-checkbox-group>-->
-            <el-checkbox @change="changeWeChat" v-model="wechat_pay">WeChat Pay</el-checkbox>
-            <el-checkbox @change="changePayPal" v-model="payPal">PayPal</el-checkbox>
-            <el-checkbox @change="changeAliPay" v-model="aliPay">AliPay</el-checkbox>
-            <el-checkbox @change="changeStripe" v-model="stripe">Stripe</el-checkbox>
+            <el-checkbox v-model="wechat_pay">WeChat Pay</el-checkbox>
+            <el-checkbox v-model="payPal">PayPal</el-checkbox>
+            <el-checkbox v-model="aliPay">AliPay</el-checkbox>
+            <el-checkbox v-model="stripe">Stripe</el-checkbox>
           <!--</el-checkbox-group>-->
         </el-form>
       </div>
@@ -96,26 +96,11 @@ export default {
           wechat_id : [
               {required: true, message: "Please enter WeChat ID", trigger: "change"}
           ],
-
       }
     };
   },
   methods: {
-      changeWeChat(val) {
 
-      },
-      changePayPal(val) {
-
-      },
-      changeStripe(val) {
-
-      },
-      changeAliPay(val) {
-
-      },
-      updatePayment(obj) {
-
-      }
   }
 };
 </script>
