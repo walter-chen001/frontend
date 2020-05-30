@@ -7,18 +7,20 @@
                 <el-radio :label="0">Sub Domain</el-radio>
             </el-radio-group>
         </el-form-item>
+        <div v-if="domain.domain_type === 1">
+            <el-form-item  label="Multiple Domain Name" prop="main_domain_name">
+                <el-input v-model="domain.domain_name" @change="changeName(domain)"></el-input>
+            </el-form-item>
 
-        <el-form-item v-if="domain.domain_type === 1">
-            <p>The process will be redirect to the Shop-Owners domain to our sub-domain: 1.Login to provider backend: 2.Redirect the domain to our IP (A record) 123,123,123,123 3.After connected our server, we have individual to verify if this domain is our shop owner domain. www.frankie.com & frankie.com-> A record "xxx.xxx.xxx.xxxx</p>
-        </el-form-item>
-
-        <el-form-item v-if="domain.domain_type === 1" label="Main Domain Name" prop="main_domain_name">
-            <el-input v-model="domain.domain_name" @change="changeName(domain)"></el-input>
-        </el-form-item>
-
-        <el-form-item v-if="domain.domain_type === 0" label="Sub Domain Name" prop="sub_domain_name">
-            <el-input v-model="domain.domain_name" @change="changeName(domain)"></el-input>
-        </el-form-item>
+            <el-form-item>
+                <p>The process will be redirect to the Shop-Owners domain to our sub-domain: 1.Login to provider backend: 2.Redirect the domain to our IP (A record) 123,123,123,123 3.After connected our server, we have individual to verify if this domain is our shop owner domain. www.frankie.com & frankie.com-> A record "xxx.xxx.xxx.xxxx</p>
+            </el-form-item>
+        </div>
+        <div v-else>
+            <el-form-item label="Sub Domain Name" prop="sub_domain_name">
+                <el-input v-model="domain.domain_name" @change="changeName(domain)"></el-input>
+            </el-form-item>
+        </div>
 
     </el-form>
   </el-card>

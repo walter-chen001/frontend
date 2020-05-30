@@ -1,6 +1,9 @@
 <template>
   <el-card class="box-card centerSection">
-    <el-form ref="form" :model="form">
+
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="Language 1" name="language 1">
+          <el-form ref="form" :model="form">
       <el-form-item label="Pages">
         <el-select v-model="seo.pages" @change="changePage">
           <el-option
@@ -21,23 +24,94 @@
       </el-form-item>
 
       <el-form-item label="Multi tag">
-        <el-select v-model="seo.multi_tag" multiple @change="changeMulti">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          ></el-option>
-        </el-select>
+        <el-input v-model="seo.multi_tag" @change="changeMulti"></el-input>
+        <!--<el-select v-model="seo.multi_tag" multiple @change="changeMulti">-->
+          <!--<el-option-->
+            <!--v-for="item in options"-->
+            <!--:key="item.value"-->
+            <!--:label="item.label"-->
+            <!--:value="item.value"-->
+          <!--&gt;</el-option>-->
+        <!--</el-select>-->
       </el-form-item>
 
     </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="Language 2" name="language 2">
+        <el-form ref="form" :model="form">
+          <el-form-item label="Pages">
+            <el-select v-model="seo.pages" @change="changePage">
+              <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="Title">
+            <el-input v-model="seo.title" @change="changeTitle"></el-input>
+          </el-form-item>
+
+          <el-form-item label="Description">
+            <el-input type="textarea" v-model="seo.description" @change="changeDescrip"></el-input>
+          </el-form-item>
+
+          <el-form-item label="Multi tag">
+            <el-select v-model="seo.multi_tag" multiple @change="changeMulti">
+              <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+        </el-form>
+      </el-tab-pane>
+      <el-tab-pane label="Language 3" name="language 3">
+        <el-form ref="form" :model="form">
+          <el-form-item label="Pages">
+            <el-select v-model="seo.pages" @change="changePage">
+              <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+          <el-form-item label="Title">
+            <el-input v-model="seo.title" @change="changeTitle"></el-input>
+          </el-form-item>
+
+          <el-form-item label="Description">
+            <el-input type="textarea" v-model="seo.description" @change="changeDescrip"></el-input>
+          </el-form-item>
+
+          <el-form-item label="Multi tag">
+            <el-select v-model="seo.multi_tag" multiple @change="changeMulti">
+              <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+
+        </el-form>
+      </el-tab-pane>
+    </el-tabs>
   </el-card>
 </template>
 
 <script>
 
-import * as updateShop from "../../cgs_api/eShopSetting/onlineShopSetting"
+import { default as csgShopApi } from "../../cgs_api/eShopSetting/onlineShopSetting";
 
 export default {
   name: "seoSetting",
@@ -65,7 +139,12 @@ export default {
           label: "Tag 4"
         }
       ],
+      lang: [],
+      activeName: "language 1",
     };
+  },
+  mounted() {
+      // this.getStoredData();
   },
   computed: {
     seo: {
@@ -80,10 +159,22 @@ export default {
     }
   },
   methods: {
+      getStoredData() {
+          const dataToSend = {
+              user_id: this.user_id
+          };
+          csgShopApi
+              .getShopData(dataToSend)
+              .then(({ data }) => {
+                  this.lang = data.languages || [];
+              })
+              .catch(e => console.log(e));
+      },
       updateSeo(obj) {
           console.log("submit!");
           var data = {...obj, user_id: this.user_id};
-          updateShop.default.updateSeoData(data).then(response => {
+          csgShopApi
+              .updateSeoData(data).then(response => {
               if (response.code == 0) {
                   this.$notify.success({ title: "提示", message: response.msg });
               } else {
