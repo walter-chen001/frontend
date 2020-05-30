@@ -1,5 +1,5 @@
 <template>
-  <h3>Welcome to domain setting</h3>
+  <h3>Welcome to Domain setting</h3>
 </template>
 
 <script>
